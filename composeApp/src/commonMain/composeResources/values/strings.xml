@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Book</string>
+    <string name="search_book_placeholder">輸入書名或 ISBN 號碼</string>
+    <string name="searched_book_detail_description">簡介</string>
+    <string name="searched_book_detail_expend_description">展開全部</string>
+</resources>
