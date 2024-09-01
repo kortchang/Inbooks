@@ -1,78 +1,72 @@
 [versions]
-agp = "8.3.2"
+agp = "8.6.0-rc01"
 android-compileSdk = "34"
-android-minSdk = "24"
+android-minSdk = "28"
 android-targetSdk = "34"
-androidx-activityCompose = "1.9.0"
-androidx-appcompat = "1.7.0"
-androidx-constraintlayout = "2.1.4"
-androidx-core-ktx = "1.13.1"
-androidx-espresso-core = "3.6.0"
-androidx-lifecycle = "2.8.0"
-androidx-material = "1.12.0"
-androidx-test-junit = "1.2.0"
+androidx-activityCompose = "1.9.1"
+androidx-room = "2.7.0-alpha07"
+androidx-sqlite = "2.5.0-alpha07"
 buildconfig = "5.3.5"
-compose-plugin = "1.7.0-dev1703"
-image-loader = "1.8.1"
+compose-plugin = "1.7.0-alpha03"
+jetbrain-androidx-lifecycle = "2.8.0"
+jetbrain-nvaigation-compose = "2.8.0-alpha09"
 junit = "4.13.2"
 kamel = "0.9.5"
 kermit = "2.0.4"
+kmpalette = "3.1.0"
 koin = "3.5.6"
-kotest = "5.0.2"
 kotlin = "2.0.0"
 kotlinx-collections-immutable = "0.3.7"
+kotlinx-datetime = "0.6.0"
 kotlinx-serialization-json = "1.6.3"
+ksp = "2.0.0-1.0.21"
 ktor = "2.3.12"
-nvaigation-compose = "2.8.0-dev1698"
-molecule = "2.0.0"
 richeditor = "1.0.0-rc05"
+uuid = "0.8.4"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
-androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core-ktx" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidx-espresso-core" }
-androidx-lifecycle-common = { module = "org.jetbrains.androidx.lifecycle:lifecycle-common", version.ref = "androidx-lifecycle" }
-androidx-material = { group = "com.google.android.material", name = "material", version.ref = "androidx-material" }
-androidx-test-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-junit" }
-image-loader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "image-loader" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidx-room" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidx-room" }
+androidx-sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "androidx-sqlite" }
+jetbrain-androidx-lifecycle-common = { module = "org.jetbrains.androidx.lifecycle:lifecycle-common", version.ref = "jetbrain-androidx-lifecycle" }
+jetbrain-androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "jetbrain-nvaigation-compose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 kamel = { module = "media.kamel:kamel-image", version.ref = "kamel" }
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kermit-koin = { module = "co.touchlab:kermit-koin", version.ref = "kermit" }
+kmpalette-core = { module = "com.kmpalette:kmpalette-core", version.ref = "kmpalette" }
+kmpalette-extensions-network = { module = "com.kmpalette:extensions-network", version.ref = "kmpalette" }
 koin-android = { group = "io.insert-koin", name = "koin-android" }
 koin-bom = { group = "io.insert-koin", name = "koin-bom", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-compose" }
 koin-core = { group = "io.insert-koin", name = "koin-core" }
-kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotest" }
-kotest-framework-engine = { group = "io.kotest", name = "kotest-framework-engine", version.ref = "kotest" }
-kotest-runner-junit5 = { group = "io.kotest", name = "kotest-runner-junit5", version.ref = "kotest" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinx-collections-immutable" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 ktor-bom = { group = "io.ktor", name = "ktor-bom", version.ref = "ktor" }
 ktor-client-android = { group = "io.ktor", name = "ktor-client-android" }
-ktor-client-core = { group = "io.ktor", name = "ktor-client-core" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation" }
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core" }
 ktor-client-darwin = { group = "io.ktor", name = "ktor-client-darwin" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging" }
 ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock" }
 ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json" }
-molecule = { module = "app.cash.molecule:molecule-runtime", version.ref = "molecule" }
-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "nvaigation-compose" }
 richeditor = { module = "com.mohamedrejeb.richeditor:richeditor-compose", version.ref = "richeditor" }
+uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
+androidxRoom = { id = "androidx.room", version.ref = "androidx-room" }
 buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
-kotest = { id = "io.kotest.multiplatform", version.ref = "kotest" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 [bundles]
 ktor-common = [

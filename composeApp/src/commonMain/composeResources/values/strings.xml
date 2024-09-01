@@ -1,6 +1,29 @@
 <resources>
     <string name="app_name">Book</string>
+
     <string name="search_book_placeholder">輸入書名或 ISBN 號碼</string>
-    <string name="searched_book_detail_description">簡介</string>
-    <string name="searched_book_detail_expend_description">展開全部</string>
+    <string name="searched_book_detail_collect">收藏這本書</string>
+
+    <string name="book_detail_book_information_title">詳細資訊</string>
+    <string name="book_detail_description_title">簡介</string>
+    <string name="book_detail_published_date_title">出版日期</string>
+    <string name="book_detail_publisher_title">出版社</string>
+    <string name="book_detail_category_title">類別</string>
+
+
+    <string name="dashboard_recent_reading_title">你正在讀...</string>
+    <string name="dashboard_recent_collect_title">最近收藏</string>
+
+    <string name="dashboard_recent_read_title">最近已閱讀</string>
+    <string name="dashboard_recent_category_title">最近的主題</string>
+    <string name="collected_book_reading_reason_title">原因</string>
+    <string name="collected_book_reading_progress_title">閱讀進度</string>
+    <string name="collected_book_reading_progress_placeholder">紀錄你所有的閱讀事件。</string>
+    <string name="collected_book_reading_reason_placeholder">寫下你想要閱讀這本書的原因。</string>
+    <string name="collected_book_collected_at_title">收藏日期</string>
+
+    <string name="book_collected">已收藏</string>
+    <string name="share">分享</string>
+
+    <string name="dashboard_greeting">Hello</string>
 </resources>
