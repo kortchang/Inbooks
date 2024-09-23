@@ -1,6 +1,4 @@
-import java.net.URI
-
-rootProject.name = "Book"
+rootProject.name = "Inbooks"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

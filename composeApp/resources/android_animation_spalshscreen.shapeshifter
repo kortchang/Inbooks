@@ -1,0 +1,212 @@
+{
+  "version": 1,
+  "layers": {
+    "vectorLayer": {
+      "id": "47",
+      "name": "vector",
+      "type": "vector",
+      "width": 432,
+      "height": 432,
+      "children": [
+        {
+          "id": "45",
+          "name": "group",
+          "type": "group",
+          "scaleX": 2.8,
+          "scaleY": 2.8,
+          "translateX": 64.8,
+          "translateY": 64.8,
+          "children": [
+            {
+              "id": "58",
+              "name": "group_1",
+              "type": "group",
+              "children": [
+                {
+                  "id": "3",
+                  "name": "path",
+                  "type": "path",
+                  "pathData": "M 26.3 61.7 C 27.01 60.21 28.8 59.58 30.3 60.3 L 54 71.67 L 77.7 60.3 C 79.2 59.58 80.99 60.21 81.7 61.7 C 82.42 63.2 81.79 64.99 80.3 65.7 L 55.3 77.7 C 54.48 78.1 53.52 78.1 52.7 77.7 L 27.7 65.7 C 26.21 64.99 25.58 63.2 26.3 61.7 Z",
+                  "fillColor": "#181818",
+                  "fillType": "evenOdd"
+                }
+              ]
+            },
+            {
+              "id": "59",
+              "name": "group_2",
+              "type": "group",
+              "children": [
+                {
+                  "id": "17",
+                  "name": "path_1",
+                  "type": "path",
+                  "pathData": "M 33.32 49.66 C 34.06 48.18 35.86 47.58 37.34 48.32 L 54 56.65 L 70.66 48.32 C 72.14 47.58 73.94 48.18 74.68 49.66 C 75.42 51.14 74.82 52.94 73.34 53.68 L 55.34 62.68 C 54.5 63.11 53.5 63.11 52.66 62.68 L 34.66 53.68 C 33.18 52.94 32.58 51.14 33.32 49.66 Z",
+                  "fillColor": "#717171",
+                  "fillType": "evenOdd"
+                }
+              ]
+            },
+            {
+              "id": "60",
+              "name": "group_3",
+              "type": "group",
+              "children": [
+                {
+                  "id": "31",
+                  "name": "path_2",
+                  "type": "path",
+                  "pathData": "M 41.32 38.66 C 42.06 37.18 43.86 36.58 45.34 37.32 L 54 41.65 L 62.66 37.32 C 64.14 36.58 65.94 37.18 66.68 38.66 C 67.42 40.14 66.82 41.94 65.34 42.68 L 55.34 47.68 C 54.5 48.11 53.5 48.11 52.66 47.68 L 42.66 42.68 C 41.18 41.94 40.58 40.14 41.32 38.66 Z",
+                  "fillColor": "#A1A1A1",
+                  "fillType": "evenOdd"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "hiddenLayerIds": []
+  },
+  "timeline": {
+    "animation": {
+      "id": "2",
+      "name": "anim",
+      "duration": 650,
+      "blocks": [
+        {
+          "id": "51",
+          "layerId": "3",
+          "propertyName": "fillAlpha",
+          "startTime": 150,
+          "endTime": 400,
+          "interpolator": "FAST_OUT_SLOW_IN",
+          "type": "number",
+          "fromValue": 0,
+          "toValue": 1
+        },
+        {
+          "id": "52",
+          "layerId": "17",
+          "propertyName": "fillAlpha",
+          "startTime": 250,
+          "endTime": 500,
+          "interpolator": "FAST_OUT_SLOW_IN",
+          "type": "number",
+          "fromValue": 0,
+          "toValue": 1
+        },
+        {
+          "id": "53",
+          "layerId": "31",
+          "propertyName": "fillAlpha",
+          "startTime": 350,
+          "endTime": 600,
+          "interpolator": "FAST_OUT_SLOW_IN",
+          "type": "number",
+          "fromValue": 0,
+          "toValue": 1
+        },
+        {
+          "id": "55",
+          "layerId": "31",
+          "propertyName": "fillAlpha",
+          "startTime": 0,
+          "endTime": 350,
+          "interpolator": "FAST_OUT_SLOW_IN",
+          "type": "number",
+          "fromValue": 0,
+          "toValue": 0
+        },
+        {
+          "id": "61",
+          "layerId": "58",
+          "propertyName": "translateY",
+          "startTime": 192,
+          "endTime": 317,
+          "interpolator": "FAST_OUT_SLOW_IN",
+          "type": "number",
+          "fromValue": 0,
+          "toValue": -10
+        },
+        {
+          "id": "63",
+          "layerId": "59",
+          "propertyName": "translateY",
+          "startTime": 275,
+          "endTime": 400,
+          "interpolator": "OVERSHOOT",
+          "type": "number",
+          "fromValue": 0,
+          "toValue": -15
+        },
+        {
+          "id": "64",
+          "layerId": "58",
+          "propertyName": "translateY",
+          "startTime": 317,
+          "endTime": 442,
+          "interpolator": "FAST_OUT_SLOW_IN",
+          "type": "number",
+          "fromValue": -10,
+          "toValue": 0
+        },
+        {
+          "id": "65",
+          "layerId": "59",
+          "propertyName": "translateY",
+          "startTime": 400,
+          "endTime": 550,
+          "interpolator": "FAST_OUT_SLOW_IN",
+          "type": "number",
+          "fromValue": -15,
+          "toValue": 0
+        },
+        {
+          "id": "66",
+          "layerId": "60",
+          "propertyName": "translateY",
+          "startTime": 350,
+          "endTime": 500,
+          "interpolator": "FAST_OUT_SLOW_IN",
+          "type": "number",
+          "fromValue": 0,
+          "toValue": -20
+        },
+        {
+          "id": "67",
+          "layerId": "60",
+          "propertyName": "translateY",
+          "startTime": 500,
+          "endTime": 650,
+          "interpolator": "FAST_OUT_SLOW_IN",
+          "type": "number",
+          "fromValue": -20,
+          "toValue": 0
+        },
+        {
+          "id": "68",
+          "layerId": "17",
+          "propertyName": "fillAlpha",
+          "startTime": 0,
+          "endTime": 250,
+          "interpolator": "FAST_OUT_SLOW_IN",
+          "type": "number",
+          "fromValue": 0,
+          "toValue": 0
+        },
+        {
+          "id": "69",
+          "layerId": "3",
+          "propertyName": "fillAlpha",
+          "startTime": 0,
+          "endTime": 150,
+          "interpolator": "FAST_OUT_SLOW_IN",
+          "type": "number",
+          "fromValue": 0,
+          "toValue": 0
+        }
+      ]
+    }
+  }
+}

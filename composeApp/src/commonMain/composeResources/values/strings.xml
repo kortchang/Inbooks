@@ -1,29 +1,70 @@
 <resources>
-    <string name="app_name">Book</string>
+    <string name="app_name">Inbooks</string>
 
-    <string name="search_book_placeholder">輸入書名或 ISBN 號碼</string>
-    <string name="searched_book_detail_collect">收藏這本書</string>
+    <string name="book_collected">已收藏</string>
+    <string name="share">分享</string>
+    <string name="see_all">查看全部</string>
+    <string name="add">新增</string>
+    <string name="edit">編輯</string>
+    <string name="delete">刪除</string>
+    <string name="cancel">取消</string>
+    <string name="save">儲存</string>
+    <string name="confirm">確認</string>
 
-    <string name="book_detail_book_information_title">詳細資訊</string>
+    <string name="powered_by_google">powered by Google</string>
+    <string name="privacy_policy_url">https://www.inbooks.app/privacy</string>
+
+    <string name="onboarding_title">讓你的囤書症毫無壓力</string>
+    <string name="onboarding_description">把所有你想看的書都收藏起來，並依照主題分類，等到你真的想看的時候再回來吧！</string>
+    <string name="onboarding_button_text">開始</string>
+    <string name="onboarding_privacy_policy_full_text">點擊開始即表示您同意%1$s</string>
+    <string name="onboarding_privacy_policy">隱私政策</string>
+
+    <string name="search_book_placeholder">想找什麼書呢？</string>
+    <string name="search_book_error_google_too_many_requests">不好意思，目前已達 Google 搜尋服務上限（每天重置一次）</string>
+
+    <string name="searched_book_detail_collect">收藏</string>
+
     <string name="book_detail_description_title">簡介</string>
     <string name="book_detail_published_date_title">出版日期</string>
     <string name="book_detail_publisher_title">出版社</string>
     <string name="book_detail_category_title">類別</string>
 
+    <string name="dashboard_greeting">Hello</string>
+    <string name="dashboard_book_title">書籍</string>
+    <string name="dashboard_topic_title">主題</string>
+    <string name="dashboard_empty_title">開始收藏你的第一本書吧</string>
+    <string name="dashboard_empty_description">隨時把你在任何地方看到想看的書籍都收藏起來，讓你需要的時候永遠找得到他們！</string>
 
-    <string name="dashboard_recent_reading_title">你正在讀...</string>
-    <string name="dashboard_recent_collect_title">最近收藏</string>
+    <string name="book_list_title">書籍</string>
+    <string name="book_list_empty_title">所有你收藏的書籍都在這</string>
+    <string name="book_list_empty_description">如果需要的話，也可以為你收藏的書籍加上原因，讓你未來可以回憶起當初想要閱讀的動機。</string>
 
-    <string name="dashboard_recent_read_title">最近已閱讀</string>
-    <string name="dashboard_recent_category_title">最近的主題</string>
+    <string name="topic_list_title">主題</string>
+    <string name="topic_list_empty_title">新增你的第一個主題</string>
+    <string name="topic_list_empty_description">你可以把你想要探索的議題、疑問、焦慮或純粹好奇所找到的書籍，透過主題分門別類。</string>
+
     <string name="collected_book_reading_reason_title">原因</string>
     <string name="collected_book_reading_progress_title">閱讀進度</string>
     <string name="collected_book_reading_progress_placeholder">紀錄你所有的閱讀事件。</string>
     <string name="collected_book_reading_reason_placeholder">寫下你想要閱讀這本書的原因。</string>
     <string name="collected_book_collected_at_title">收藏日期</string>
+    <string name="collected_book_uncollect">取消收藏</string>
+    <string name="collected_book_book_information_title">書籍資訊</string>
 
-    <string name="book_collected">已收藏</string>
-    <string name="share">分享</string>
+    <string name="collection_title">你的收藏</string>
+    <string name="collection_add_menu_topic_title">主題</string>
+    <string name="collection_add_menu_topic_description">你可以依照問題、用途，將你的書籍分類。</string>
+    <string name="collection_filter_all">全部</string>
+    <string name="collection_filter_book">書籍</string>
+    <string name="collection_filter_topic">主題</string>
 
-    <string name="dashboard_greeting">Hello</string>
+    <string name="add_or_edit_topic_title">標題</string>
+    <string name="add_or_edit_topic_unnamed_title">未命名主題</string>
+    <string name="add_or_edit_topic_title_placeholder">你可以依照問題、用途，將你的書籍分類。</string>
+    <string name="add_or_edit_topic_description">詳細資訊</string>
+    <string name="add_or_edit_topic_description_placeholder">補充更多關於這個主題的內容。</string>
+    <string name="add_or_edit_topic_add_book_button_text">加入書籍</string>
+    <string name="add_or_edit_topic_edit_books_button_text">編輯書單</string>
+    <string name="add_or_edit_topic_confirm_delete_title">確定要刪除嗎？</string>
 </resources>
