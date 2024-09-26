@@ -37,8 +37,10 @@ import io.kort.inbooks.ui.resource.onboarding_button_text
 import io.kort.inbooks.ui.resource.onboarding_description
 import io.kort.inbooks.ui.resource.onboarding_privacy_policy
 import io.kort.inbooks.ui.resource.onboarding_privacy_policy_full_text
+import io.kort.inbooks.ui.resource.onboarding_terms_and_conditions
 import io.kort.inbooks.ui.resource.onboarding_title
 import io.kort.inbooks.ui.resource.privacy_policy_url
+import io.kort.inbooks.ui.resource.terms_and_conditions_url
 import io.kort.inbooks.ui.token.system.System
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
@@ -102,25 +104,35 @@ private fun Footer(
 @Composable
 private fun PrivacyPolicyText() {
     val fullText = stringResource(Res.string.onboarding_privacy_policy_full_text)
-    val argument = stringResource(Res.string.onboarding_privacy_policy)
-    val url = stringResource(Res.string.privacy_policy_url)
-    val formatedText = remember(fullText, argument) { fullText.rangeFormat(argument) }
+    val privacyPolicyText = stringResource(Res.string.onboarding_privacy_policy)
+    val termsAndConditionsText = stringResource(Res.string.onboarding_terms_and_conditions)
+    val privacyPolicyUrl = stringResource(Res.string.privacy_policy_url)
+    val termsAndConditionsUrl = stringResource(Res.string.terms_and_conditions_url)
+
+    val formatedText = remember(fullText, privacyPolicyText) {
+        fullText.rangeFormat(privacyPolicyText, termsAndConditionsText)
+    }
     val uriHandler = LocalUriHandler.current
-    val annotated = remember(formatedText, uriHandler) {
+
+    val annotated = remember(formatedText, privacyPolicyUrl, termsAndConditionsUrl, uriHandler) {
         buildAnnotatedString {
             append(formatedText.string)
-            val urlRange = formatedText.ranges[0]!!
-            addLink(
-                clickable = LinkAnnotation.Clickable(
-                    tag = "privacy_policy",
-                    styles = TextLinkStyles(style = SpanStyle(textDecoration = TextDecoration.Underline)),
-                    linkInteractionListener = {
-                        uriHandler.openUri(url)
-                    }
-                ),
-                start = urlRange.first,
-                end = urlRange.last
-            )
+            listOf(
+                Triple(formatedText.ranges[0]!!, "privacy_policy", privacyPolicyUrl),
+                Triple(formatedText.ranges[1]!!, "terms_and_conditions", termsAndConditionsUrl),
+            ).forEach { (range, tag, url) ->
+                addLink(
+                    clickable = LinkAnnotation.Clickable(
+                        tag = tag,
+                        styles = TextLinkStyles(style = SpanStyle(textDecoration = TextDecoration.Underline)),
+                        linkInteractionListener = {
+                            uriHandler.openUri(url)
+                        }
+                    ),
+                    start = range.first,
+                    end = range.last
+                )
+            }
         }
     }
 

@@ -49,8 +49,6 @@ class SelectBookViewModel(
                         selectedBooks.filterNot { it.book.id == topicBook.book.id }
                     }
                 }
-
-                Logger.d("[Kort Debug]") { "currentSelectedBook: ${currentSelectedBooksStateFlow.value.joinToString { (it.book.title to it.insertedAt).toString() }}" }
             }
         }
     }

@@ -5,7 +5,7 @@ import io.kort.inbooks.domain.repository.SettingsRepository
 
 class AppViewModel(
     private val settingsRepository: SettingsRepository,
-): ViewModel() {
+) : ViewModel() {
     suspend fun isOnboarded(): Boolean {
         return settingsRepository.isOnboarded()
     }

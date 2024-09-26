@@ -1,7 +1,6 @@
 package io.kort.inbooks.ui.foundation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -14,7 +13,6 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.coerceIn
 import androidx.compose.ui.unit.dp
-import co.touchlab.kermit.Logger
 
 @Composable
 fun rememberHeightDelegateScrollConnection(
@@ -29,11 +27,6 @@ class HeightDelegateScrollConnection(
     private val height: Dp,
     private val density: Density
 ) : NestedScrollConnection {
-    val progress: Float by derivedStateOf {
-        Logger.e("[Kort Debug]") { "yOffset: $yOffset" }
-        val heightOffset = -yOffset
-        heightOffset / height
-    }
     private var scrollY by mutableStateOf(0f)
     private var yOffset by mutableStateOf(0.dp)
 

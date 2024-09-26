@@ -12,13 +12,15 @@
     <string name="confirm">確認</string>
 
     <string name="powered_by_google">powered by Google</string>
-    <string name="privacy_policy_url">https://www.inbooks.app/privacy</string>
+    <string name="privacy_policy_url">https://privacy-policy.inbooks.tw</string>
+    <string name="terms_and_conditions_url">https://terms.inbooks.tw</string>
 
     <string name="onboarding_title">讓你的囤書症毫無壓力</string>
     <string name="onboarding_description">把所有你想看的書都收藏起來，並依照主題分類，等到你真的想看的時候再回來吧！</string>
     <string name="onboarding_button_text">開始</string>
-    <string name="onboarding_privacy_policy_full_text">點擊開始即表示您同意%1$s</string>
+    <string name="onboarding_privacy_policy_full_text">點擊開始即表示您同意 %1$s 與 %2$s</string>
     <string name="onboarding_privacy_policy">隱私政策</string>
+    <string name="onboarding_terms_and_conditions">使用條款</string>
 
     <string name="search_book_placeholder">想找什麼書呢？</string>
     <string name="search_book_error_google_too_many_requests">不好意思，目前已達 Google 搜尋服務上限（每天重置一次）</string>
@@ -67,4 +69,7 @@
     <string name="add_or_edit_topic_add_book_button_text">加入書籍</string>
     <string name="add_or_edit_topic_edit_books_button_text">編輯書單</string>
     <string name="add_or_edit_topic_confirm_delete_title">確定要刪除嗎？</string>
+
+    <string name="select_book_empty_title">你尚未收藏任何書籍</string>
+    <string name="select_book_empty_description">你可以先透過搜尋功能收藏想要閱讀的書籍，再透過主題將他們整裡起來喔！</string>
 </resources>

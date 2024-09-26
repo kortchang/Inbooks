@@ -67,12 +67,16 @@ import io.kort.inbooks.ui.component.SelectBox
 import io.kort.inbooks.ui.component.TopAppBar
 import io.kort.inbooks.ui.foundation.DateTimeFormatter
 import io.kort.inbooks.ui.foundation.plus
+import io.kort.inbooks.ui.pattern.Empty
 import io.kort.inbooks.ui.pattern.book.BookCover
 import io.kort.inbooks.ui.pattern.book.BookDetail
 import io.kort.inbooks.ui.pattern.book.BookTitle
 import io.kort.inbooks.ui.resource.Check
 import io.kort.inbooks.ui.resource.Icons
 import io.kort.inbooks.ui.resource.Xmark
+import io.kort.inbooks.ui.resource.illustration_empty_dashboard
+import io.kort.inbooks.ui.resource.select_book_empty_description
+import io.kort.inbooks.ui.resource.select_book_empty_title
 import io.kort.inbooks.ui.token.reference.Reference
 import io.kort.inbooks.ui.token.system.System
 import kotlinx.datetime.Clock
@@ -80,6 +84,7 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.toLocalDateTime
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -98,16 +103,25 @@ fun PageScope.SelectBookScreen(
                 back = back,
                 confirm = { confirm(initializedUiState.selectedBooks) }
             )
-            Books(
-                modifier = Modifier.weight(1f),
-                windowInsets = bottomWindowInsets,
-                selectedBooks = initializedUiState.selectedBooks,
-                books = initializedUiState.books,
-                bookIdToCollectedBooks = initializedUiState.bookIdToCollectedBooks,
-                onSelectedChange = { book, selected ->
-                    initializedUiState.intentTo(SelectBookUiIntent.UpdateBookSelected(book, selected))
-                }
-            )
+            if (initializedUiState.books.isEmpty()) {
+                Empty(
+                    modifier = Modifier.weight(1f).windowInsetsPadding(bottomWindowInsets),
+                    illustration = painterResource(Res.drawable.illustration_empty_dashboard),
+                    title = stringResource(Res.string.select_book_empty_title),
+                    description = stringResource(Res.string.select_book_empty_description),
+                )
+            } else {
+                Books(
+                    modifier = Modifier.weight(1f),
+                    windowInsets = bottomWindowInsets,
+                    selectedBooks = initializedUiState.selectedBooks,
+                    books = initializedUiState.books,
+                    bookIdToCollectedBooks = initializedUiState.bookIdToCollectedBooks,
+                    onSelectedChange = { book, selected ->
+                        initializedUiState.intentTo(SelectBookUiIntent.UpdateBookSelected(book, selected))
+                    }
+                )
+            }
         }
     }
 }
