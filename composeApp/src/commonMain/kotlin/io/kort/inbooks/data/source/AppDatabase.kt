@@ -37,7 +37,7 @@ import kotlinx.serialization.json.Json
         BasicTopicLocalModel::class,
         BasicTopicLocalModel.TopicBookCrossReferenceLocalModel::class,
     ],
-    version = 1,
+    version = 2,
 )
 @TypeConverters(AppTypeConverters::class)
 @ConstructedBy(AppDatabaseConstructor::class)
@@ -51,7 +51,9 @@ abstract class AppDatabase : RoomDatabase() {
 expect object AppDatabaseConstructor : RoomDatabaseConstructor<AppDatabase>
 
 fun RoomDatabase.Builder<AppDatabase>.commonConfiguration(): RoomDatabase.Builder<AppDatabase> {
-    return this.setQueryCoroutineContext(Dispatchers.IO)
+    return this
+        .addMigrations(*AppDatabaseMigration.getAll().toTypedArray())
+        .setQueryCoroutineContext(Dispatchers.IO)
 }
 
 object AppTypeConverters {

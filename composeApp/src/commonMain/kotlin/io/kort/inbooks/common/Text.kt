@@ -25,7 +25,17 @@ object RangeStringFormatter {
 
                 val argument = arguments[argumentIndex]
 
-                val formattedArgument = "%$argumentType".format(argument)
+                /**
+                 * TODO("
+                 *  這邊算是 iOS 那邊的鍋，反正有一些問題讓我們沒辦法使用正式的 format，
+                 *  所以連官方的 stringResource 都是直接把參數取代，而沒有做更多的處理：
+                 *  例如浮點數要不要補零之類的設定，目前都是不支援的
+                 *  ")
+                 * [issues](https://youtrack.jetbrains.com/issue/KT-25506/Stdlib-String.format-in-common)
+                 * 未來比較好是這邊要改成：
+                 * `"%$argumentType".format(argument)`
+                 */
+                val formattedArgument = argument.toString()
 
                 result.setRange(match.range.first, match.range.last + 1, formattedArgument)
                 findIndex += formattedArgument.length
@@ -38,8 +48,6 @@ object RangeStringFormatter {
         return RangeStringResult(result.toString(), rangeMap)
     }
 }
-
-expect fun String.format(vararg arguments: Any): String
 
 fun String.rangeFormat(vararg arguments: Any): RangeStringResult {
     return RangeStringFormatter.format(this, *arguments)

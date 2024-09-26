@@ -52,6 +52,7 @@ interface CollectedBookLocalDateSource : BookLocalDataSource, ForDashboard {
         return externalIds.firstNotNullOfOrNull { getCollectedBookByExternalId(it.first, it.second) }
     }
 
+    @Transaction
     @Query(
         """
             SELECT collected_books.* 
@@ -68,6 +69,7 @@ interface CollectedBookLocalDateSource : BookLocalDataSource, ForDashboard {
         value: String
     ): CollectedBookLocalModel?
 
+    @Transaction
     @Query(
         """
         SELECT * FROM collected_books 
@@ -81,6 +83,7 @@ interface CollectedBookLocalDateSource : BookLocalDataSource, ForDashboard {
         CollectedBookLocalModel
         >
 
+    @Transaction
     @Query(
         """
         SELECT * FROM collected_books 

@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.Relation
 import io.kort.inbooks.data.source.book.BookLocalModel
@@ -45,7 +46,7 @@ data class BasicTopicLocalModel(
                 childColumns = ["book_id"],
                 onDelete = ForeignKey.CASCADE,
             ),
-        ]
+        ],
     )
     data class TopicBookCrossReferenceLocalModel(
         @ColumnInfo("topic_id") val topicId: String,

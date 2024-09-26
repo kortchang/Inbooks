@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.Junction
 import androidx.room.PrimaryKey
 import androidx.room.Relation
@@ -58,7 +59,8 @@ data class BookLocalModel(
                 childColumns = ["book_id"],
                 onDelete = ForeignKey.CASCADE,
             )
-        ]
+        ],
+        indices = [Index("book_id")]
     )
     data class ExternalIdLocalModel(
         @ColumnInfo("book_id") val bookId: String,

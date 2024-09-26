@@ -1,4 +1,4 @@
-package io.kort.inbooks
+package io.kort.inbooks.ui.screen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

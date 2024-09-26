@@ -16,5 +16,5 @@ actual fun Scope.getDataStorePath(fileName: String): String {
         create = false,
         error = null,
     )
-    requireNotNull(documentDirectory).path + "/$fileName"
+    return requireNotNull(documentDirectory).path + "/$fileName"
 }

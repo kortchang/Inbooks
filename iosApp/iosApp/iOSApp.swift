@@ -10,6 +10,6 @@ struct iOSApp: App {
     }
 
     init() {
-        KoinInitializerKt.startKoin(appDeclaration: { _ in })
+        Application().onCreate()
     }
 }
