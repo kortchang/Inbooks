@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.exclude
@@ -95,7 +96,7 @@ fun PageScope.SearchScreen(
                         }
                     }
                 },
-                contentPadding = bottomWindowInsets.asPaddingValues() + PaddingValues(top = 64.dp),
+                windowInsets = bottomWindowInsets,
             )
         }
 
@@ -159,8 +160,8 @@ private fun SearchTopAppBar(
 fun SearchedBooksList(
     books: List<SearchUiState.BookUiModel>,
     onClickBook: (SearchUiState.BookUiModel) -> Unit,
+    windowInsets: WindowInsets,
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
     val state = rememberLazyListState()
     val focusManager = LocalFocusManager.current
@@ -171,12 +172,12 @@ fun SearchedBooksList(
     }
 
     LazyColumn(
-        modifier = modifier.fillMaxSize(),
+        modifier = modifier,
         state = state,
         verticalArrangement = Arrangement.spacedBy(32.dp),
-        contentPadding = contentPadding,
+        contentPadding = windowInsets.asPaddingValues() + PaddingValues(top = 64.dp),
     ) {
-        items(books) { book ->
+        items(books, key = { it.book.id }) { book ->
             Book(
                 book = book,
                 onClick = { onClickBook(book) },
@@ -195,7 +196,7 @@ private fun Book(
             BookCover(
                 book = book.book,
                 layout = BookCoverDefaults.layout(BookCoverLayoutStyle.FillBy.Width.Medium),
-                share = BookCoverDefaults.share(listOf(SharedScene.SearchAndBookDetail)),
+//                share = BookCoverDefaults.share(listOf(SharedScene.SearchAndBookDetail)),
             )
         },
         title = {

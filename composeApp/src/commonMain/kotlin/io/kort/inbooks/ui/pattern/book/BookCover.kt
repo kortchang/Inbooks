@@ -50,6 +50,12 @@ fun BookCover(
     val clickModifier = modifier
         .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier)
 
+    val sharedElementModifier = Modifier.sharedElement(
+        scenes = share.scenes,
+        key = "book_${book.id}",
+        zIndexInOverlay = share.zIndex?.toFloat() ?: 0f
+    )
+
     val coverNotExistModifier = Modifier
         .then(
             when (layout.fillBy) {
@@ -69,6 +75,7 @@ fun BookCover(
         is AsyncImagePainter.State.Error -> {
             Box(
                 modifier = Modifier
+                    .then(sharedElementModifier)
                     .then(clickModifier)
                     .then(coverNotExistModifier)
                     .background(Color(0xFFA0A0A0))
@@ -85,25 +92,21 @@ fun BookCover(
 
         AsyncImagePainter.State.Empty, is AsyncImagePainter.State.Loading -> {
             Spacer(
-                clickModifier then coverNotExistModifier
+                clickModifier then coverNotExistModifier then sharedElementModifier
             )
         }
 
         is AsyncImagePainter.State.Success -> {
             Image(
                 modifier = Modifier
-                    .sharedElement(
-                        scenes = share.scenes,
-                        key = "book_${book.id}",
-                        zIndexInOverlay = share.zIndex?.toFloat() ?: 0f
-                    )
-                    .then(clickModifier)
+                    .then(sharedElementModifier)
                     .then(
                         when (layout.fillBy) {
                             is BookCoverLayoutStyle.FillBy.Width -> Modifier.width(layout.fillBy.value)
                             is BookCoverLayoutStyle.FillBy.Height -> Modifier.height(layout.fillBy.value)
                         }
                     )
+                    .then(clickModifier)
                     .dropShadow()
                     .edgeShadow(),
                 painter = state.painter,
