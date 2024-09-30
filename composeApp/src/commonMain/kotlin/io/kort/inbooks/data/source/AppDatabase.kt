@@ -6,6 +6,7 @@ import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.benasher44.uuid.Uuid
 import com.benasher44.uuid.uuidFrom
 import io.kort.inbooks.data.source.book.BookLocalModel
@@ -52,6 +53,7 @@ expect object AppDatabaseConstructor : RoomDatabaseConstructor<AppDatabase>
 
 fun RoomDatabase.Builder<AppDatabase>.commonConfiguration(): RoomDatabase.Builder<AppDatabase> {
     return this
+        .setDriver(BundledSQLiteDriver())
         .addMigrations(*AppDatabaseMigration.getAll().toTypedArray())
         .setQueryCoroutineContext(Dispatchers.IO)
 }

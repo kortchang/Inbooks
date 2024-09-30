@@ -5,7 +5,6 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.graphics.Color
 import io.kamel.image.config.LocalKamelConfig
 import io.kort.inbooks.ui.foundation.getKamelConfig
 import io.kort.inbooks.ui.token.component.Component

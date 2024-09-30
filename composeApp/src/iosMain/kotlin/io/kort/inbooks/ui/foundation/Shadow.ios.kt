@@ -29,10 +29,12 @@ actual class DropShadowModifier actual constructor(
         val offsetXPx = shadow.offsetX.toPx()
         val offsetYPx = shadow.offsetY.toPx()
 
-        paint.maskFilter = MaskFilter.makeBlur(
-            mode = FilterBlurMode.NORMAL,
-            sigma = blurPx,
-        )
+        if (blurPx != 0f) {
+            paint.maskFilter = MaskFilter.makeBlur(
+                mode = FilterBlurMode.NORMAL,
+                sigma = blurPx,
+            )
+        }
 
         val spreadPx = shadow.spread.toPx()
         val size = drawContext.size
@@ -75,10 +77,12 @@ actual class InnerShadowModifier actual constructor(
         val innerStrokeWidthPx = shadow.spread.toPx()
 
         paint.apply {
-            paint.maskFilter = MaskFilter.makeBlur(
-                mode = FilterBlurMode.NORMAL,
-                sigma = blurPx,
-            )
+            if (blurPx != 0f) {
+                paint.maskFilter = MaskFilter.makeBlur(
+                    mode = FilterBlurMode.NORMAL,
+                    sigma = blurPx,
+                )
+            }
             strokeWidth = strokeWidthPx
         }
 

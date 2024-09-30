@@ -72,9 +72,7 @@ fun BottomAppBar(
                         },
                         shape = CircleShape,
                     )
-                    .graphicsLayer {
-                        alpha = animatedAlpha
-                    }
+                    .graphicsLayer { alpha = animatedAlpha }
                     .background(System.colors.background, CircleShape)
             ) {
                 majorScreens.forEach { (screen, icon) ->

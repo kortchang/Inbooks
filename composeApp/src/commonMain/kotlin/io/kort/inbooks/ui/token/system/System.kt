@@ -2,6 +2,7 @@ package io.kort.inbooks.ui.token.system
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
@@ -22,17 +23,14 @@ data class System(
 
         val colors: Colors
             @Composable
-            @ReadOnlyComposable
             get() = LocalSystem.current.colors
 
         val spacing: Spacing
             @Composable
-            @ReadOnlyComposable
             get() = LocalSystem.current.spacing
 
         val shadow: Shadow
             @Composable
-            @ReadOnlyComposable
             get() = LocalSystem.current.shadow
     }
 
@@ -136,4 +134,4 @@ data class System(
     }
 }
 
-val LocalSystem = staticCompositionLocalOf { System.default() }
+val LocalSystem = compositionLocalOf { System.default() }

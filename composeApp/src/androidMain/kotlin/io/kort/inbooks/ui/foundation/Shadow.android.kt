@@ -27,7 +27,9 @@ actual class DropShadowModifier actual constructor(
         val offsetXPx = shadow.offsetX.toPx()
         val offsetYPx = shadow.offsetY.toPx()
 
-        paint.maskFilter = BlurMaskFilter(blurPx, BlurMaskFilter.Blur.NORMAL)
+        if (blurPx != 0f) {
+            paint.maskFilter = BlurMaskFilter(blurPx, BlurMaskFilter.Blur.NORMAL)
+        }
 
         val spreadPx = shadow.spread.toPx()
         val size = drawContext.size
@@ -69,7 +71,9 @@ actual class InnerShadowModifier actual constructor(
         val innerStrokeWidthPx = shadow.spread.toPx()
 
         paint.apply {
-            maskFilter = BlurMaskFilter(blurPx, BlurMaskFilter.Blur.NORMAL)
+            if (blurPx != 0f) {
+                maskFilter = BlurMaskFilter(blurPx, BlurMaskFilter.Blur.NORMAL)
+            }
             style = android.graphics.Paint.Style.FILL
             strokeWidth = strokeWidthPx
         }

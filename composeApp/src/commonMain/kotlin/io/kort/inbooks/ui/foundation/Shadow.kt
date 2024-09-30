@@ -44,9 +44,10 @@ sealed class Shadow {
      */
     @Composable
     fun toTextShadow() =
-        Shadow(color,
-            with(LocalDensity.current) { Offset(offsetX.toPx(), offsetY.toPx()) },
-            with(LocalDensity.current) { blur.toPx() }
+        Shadow(
+            color = color,
+            offset = with(LocalDensity.current) { Offset(offsetX.toPx(), offsetY.toPx()) },
+            blurRadius = with(LocalDensity.current) { blur.toPx() }
         )
 }
 
@@ -57,8 +58,8 @@ fun Modifier.shadow(shadow: Shadow, shape: Shape = RectangleShape, clip: Boolean
         when (shadow) {
             is Shadow.Drop -> DropShadowModifier(shadow, shape)
             is Shadow.Inner -> InnerShadowModifier(shadow, shape)
-        }.run { if (clip) clip(shape = shape) else this }
-    }
+        }
+    }.run { if (clip) clip(shape = shape) else this }
 
 expect class DropShadowModifier(shadow: Shadow.Drop, shape: Shape) : DrawModifier
 expect class InnerShadowModifier(shadow: Shadow.Inner, shape: Shape) : DrawModifier

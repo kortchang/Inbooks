@@ -48,4 +48,6 @@ data class Component(
     }
 }
 
-val LocalComponent = compositionLocalWithComputedDefaultOf { Component.default(io.kort.inbooks.ui.token.system.LocalSystem.currentValue) }
+val LocalComponent = compositionLocalWithComputedDefaultOf {
+    Component.default(io.kort.inbooks.ui.token.system.LocalSystem.currentValue)
+}
