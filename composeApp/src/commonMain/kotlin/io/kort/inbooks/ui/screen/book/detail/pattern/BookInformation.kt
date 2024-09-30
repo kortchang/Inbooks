@@ -33,11 +33,19 @@ import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun BookInformation(book: Book) {
-    Column {
+fun BookInformation(
+    book: Book,
+    colors: BookInformationColors,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier) {
         var descriptionLoaded by remember(book.description) { mutableStateOf(book.description == null) }
         book.description?.let {
-            Description(description = it, onLoad = { descriptionLoaded = true })
+            Description(
+                description = it,
+                colors = colors,
+                onLoad = { descriptionLoaded = true }
+            )
         }
         val items = remember(book) {
             listOfNotNull(
@@ -58,12 +66,12 @@ fun BookInformation(book: Book) {
                     Column(
                         verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
-                        Subtitle(text = stringResource(titleRes))
+                        Subtitle(text = stringResource(titleRes), color = colors.onColorVariant)
                         Text(
                             text = value,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.W600,
-                            color = System.colors.onBackground,
+                            color = colors.onColor,
                         )
                     }
                 }
@@ -75,19 +83,21 @@ fun BookInformation(book: Book) {
 @Composable
 private fun Subtitle(
     modifier: Modifier = Modifier,
-    text: String
+    text: String,
+    color: Color,
 ) {
     Text(
         modifier = modifier,
         text = text,
         fontSize = 16.sp,
-        color = System.colors.onBackgroundVariant,
+        color = color,
     )
 }
 
 @Composable
 private fun Description(
     description: String,
+    colors: BookInformationColors,
     onLoad: () -> Unit,
 ) {
     val richTextState = rememberRichTextState()
@@ -100,14 +110,34 @@ private fun Description(
 
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Subtitle(
-            text = stringResource(Res.string.book_detail_description_title)
+            text = stringResource(Res.string.book_detail_description_title),
+            color = colors.onColorVariant,
         )
         RichText(
             modifier = Modifier.fillMaxWidth(),
             state = richTextState,
             fontSize = 16.sp,
-            color = Color(0xFF4A4A4A),
+            color = colors.onColor,
             overflow = TextOverflow.Ellipsis,
         )
     }
+}
+
+data class BookInformationColors(
+    val onColor: Color,
+    val onColorVariant: Color,
+)
+
+object BookInformationDefaults {
+    @Composable
+    fun colorsOnBackground(): BookInformationColors = BookInformationColors(
+        onColor = System.colors.onBackground,
+        onColorVariant = System.colors.onBackgroundVariant,
+    )
+
+    @Composable
+    fun colorsOnSurface(): BookInformationColors = BookInformationColors(
+        onColor = System.colors.onSurface,
+        onColorVariant = System.colors.onSurfaceVariant,
+    )
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.kort.inbooks.domain.model.book.CollectedBook
 import io.kort.inbooks.domain.model.book.SearchedBook
+import io.kort.inbooks.domain.repository.SearchBookError
 import io.kort.inbooks.domain.repository.SearchBookRepository
 import io.kort.inbooks.domain.usecase.ResolveSearchedBooksToCollectedOrNotUseCase
 import io.kort.inbooks.ui.foundation.started
@@ -33,7 +34,11 @@ class SearchViewModel(
                         delay(1000)
                         isSearchingFlow.value = true
                         searchedBookUiModelsFlow.value = getBookUiModels(searchText)
-                            .onFailure { _uiEvent.emit(SearchUiEvent.TooManyRequestsError) }
+                            .onFailure {
+                                if (it is SearchBookError.TooManyRequests) {
+                                    _uiEvent.emit(SearchUiEvent.TooManyRequestsError)
+                                }
+                            }
                             .getOrDefault(emptyList())
                     }
                 } finally {

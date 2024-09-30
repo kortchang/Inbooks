@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="AppTheme" parent="@android:style/Theme.Material.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
         <item name="android:windowSplashScreenBackground" tools:targetApi="s">@color/ic_launcher_background</item>
         <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">@drawable/animation_splashscreen</item>
     </style>

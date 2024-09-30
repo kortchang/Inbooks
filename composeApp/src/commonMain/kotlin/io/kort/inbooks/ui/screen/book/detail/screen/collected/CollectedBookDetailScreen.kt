@@ -62,6 +62,7 @@ import io.kort.inbooks.ui.resource.MinusCircle
 import io.kort.inbooks.ui.resource.MoreVert
 import io.kort.inbooks.ui.resource.NavArrowDown
 import io.kort.inbooks.ui.resource.NavArrowLeft
+import io.kort.inbooks.ui.screen.book.detail.pattern.BookInformationDefaults
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
@@ -206,7 +207,7 @@ private fun Content(
                         )
                     }
                     if (expand) {
-                        BookInformation(book.book)
+                        BookInformation(book.book, colors = BookInformationDefaults.colorsOnBackground())
                     }
                 }
             }

@@ -42,6 +42,8 @@ import io.kort.inbooks.ui.resource.PlusCircle
 import io.kort.inbooks.ui.resource.Res
 import io.kort.inbooks.ui.resource.searched_book_detail_collect
 import io.kort.inbooks.ui.screen.book.detail.pattern.BookInformation
+import io.kort.inbooks.ui.screen.book.detail.pattern.BookInformationColors
+import io.kort.inbooks.ui.screen.book.detail.pattern.BookInformationDefaults
 import kotlinx.coroutines.flow.collectLatest
 import org.jetbrains.compose.resources.stringResource
 import org.koin.core.parameter.parametersOf
@@ -147,7 +149,7 @@ private fun Content(
             Spacer(Modifier.height(32.dp))
         }
 
-        item { BookInformation(book.book) }
+        item { BookInformation(book.book, colors = BookInformationDefaults.colorsOnSurface()) }
     }
 }
 

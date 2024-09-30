@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.EnterExitState
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
+import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.slideInVertically
@@ -54,10 +55,10 @@ fun BottomAppBar(
             if (targetState == EnterExitState.Visible) 1f else 0f
         }
 
-        val shadowAlpha by transition.animateFloat(
-            transitionSpec = { spring(visibilityThreshold = 0.01f) }
-        ) { targetValue ->
-            if (targetValue == EnterExitState.Visible) 0.08f else 0f
+        val shadow = System.shadow.medium
+        val shadowColor = shadow.color
+        val animatedShadowColor by transition.animateColor { targetValue ->
+            if (targetValue == EnterExitState.Visible) shadowColor else shadowColor.copy(alpha = 0f)
         }
 
         with(sharedTransitionScope) {
@@ -65,11 +66,10 @@ fun BottomAppBar(
                 Modifier
                     .renderInSharedTransitionScopeOverlay(zIndexInOverlay = 1f)
                     .shadow(
-                        Shadow.Drop(
-                            color = Reference.Colors.Black.copy(alpha = shadowAlpha),
-                            blur = 20.dp,
-                            offsetY = 4.dp,
-                        ),
+                        shadow = when (shadow) {
+                            is Shadow.Drop -> shadow.copy(color = animatedShadowColor)
+                            is Shadow.Inner -> shadow.copy(color = animatedShadowColor)
+                        },
                         shape = CircleShape,
                     )
                     .graphicsLayer {

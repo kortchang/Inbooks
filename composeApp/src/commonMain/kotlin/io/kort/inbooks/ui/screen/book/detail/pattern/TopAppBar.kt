@@ -22,6 +22,7 @@ import io.kort.inbooks.ui.foundation.Shadow
 import io.kort.inbooks.ui.foundation.shadow
 import io.kort.inbooks.ui.resource.Icons
 import io.kort.inbooks.ui.resource.NavArrowLeft
+import io.kort.inbooks.ui.token.system.System
 
 @OptIn(ExperimentalFoundationApi::class)
 fun LazyListScope.detailTopAppBar(
@@ -29,42 +30,38 @@ fun LazyListScope.detailTopAppBar(
     book: Book,
     back: () -> Unit,
 ) {
-   stickyHeader {
-       Row(
-           modifier = Modifier
-               .systemBarsPadding()
-               .padding(top = 12.dp)
-               .padding(start = 16.dp, end = 32.dp),
-           verticalAlignment = Alignment.CenterVertically,
-           horizontalArrangement = Arrangement.spacedBy(8.dp),
-       ) {
-           Icon(
-               modifier = Modifier
-                   .size(48.dp)
-                   .then(
-                       if (lazyListState.canScrollBackward) {
-                           Modifier
-                               .shadow(
-                                   Shadow.Drop(
-                                       Color.Black.copy(alpha = 0.04f),
-                                       blur = 20.dp,
-                                       offsetY = 5.dp
-                                   ),
-                                   shape = RoundedCornerShape(16.dp),
-                               )
-                               .background(Color.White, shape = RoundedCornerShape(16.dp))
-                       } else {
-                           Modifier
-                       }
-                   )
-                   .clickable(onClick = back)
-                   .wrapContentSize(align = Alignment.Center)
-                   .size(24.dp),
-               imageVector = Icons.NavArrowLeft,
-               contentDescription = null,
-               tint = Color(0xFF6F6F6F)
-           )
-           SmallBookRowIfScrolled(lazyListState = lazyListState, book = book)
-       }
-   }
+    stickyHeader {
+        Row(
+            modifier = Modifier
+                .systemBarsPadding()
+                .padding(top = 12.dp)
+                .padding(start = 16.dp, end = 32.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Icon(
+                modifier = Modifier
+                    .size(48.dp)
+                    .then(
+                        if (lazyListState.canScrollBackward) {
+                            Modifier
+                                .shadow(
+                                    shadow = System.shadow.high,
+                                    shape = RoundedCornerShape(16.dp),
+                                )
+                                .background(Color.White, shape = RoundedCornerShape(16.dp))
+                        } else {
+                            Modifier
+                        }
+                    )
+                    .clickable(onClick = back)
+                    .wrapContentSize(align = Alignment.Center)
+                    .size(24.dp),
+                imageVector = Icons.NavArrowLeft,
+                contentDescription = null,
+                tint = Color(0xFF6F6F6F)
+            )
+            SmallBookRowIfScrolled(lazyListState = lazyListState, book = book)
+        }
+    }
 }

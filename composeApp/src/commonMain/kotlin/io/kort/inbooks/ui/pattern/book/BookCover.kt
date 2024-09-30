@@ -37,6 +37,7 @@ import io.kort.inbooks.ui.foundation.shadow
 import io.kort.inbooks.ui.foundation.SharedScene
 import io.kort.inbooks.ui.foundation.sharedElement
 import io.kort.inbooks.ui.token.reference.Reference
+import io.kort.inbooks.ui.token.system.System
 
 @Composable
 fun BookCover(
@@ -123,12 +124,7 @@ fun BookCover(
 @Composable
 private fun Modifier.dropShadow(): Modifier {
     return shadow(
-        shadow = Shadow.Drop(
-            color = Color.Black.copy(alpha = 0.15f),
-            blur = 10.dp,
-            offsetX = (-4).dp,
-            offsetY = 4.dp
-        ),
+        shadow = System.shadow.low,
         shape = RoundedCornerShape(3.dp)
     )
 }

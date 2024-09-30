@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -55,6 +56,7 @@ fun TextField(
             color = System.colors.onBackground,
             fontSize = 16.sp
         ),
+        cursorBrush = SolidColor(System.colors.onBackgroundVariant),
         singleLine = singleLine,
         decorationBox = { innerTextField ->
             InteractionBox(rounded = rounded) {

@@ -37,6 +37,7 @@ import io.kamel.core.Resource
 import io.kamel.image.asyncPainterResource
 import io.kort.inbooks.ui.foundation.Shadow
 import io.kort.inbooks.ui.foundation.shadow
+import io.kort.inbooks.ui.token.system.System
 
 @Composable
 fun SmallBookRowIfScrolled(
@@ -73,11 +74,7 @@ private fun SmallBookRow(
         modifier = modifier
             .height(48.dp)
             .shadow(
-                Shadow.Drop(
-                    Color.Black.copy(alpha = 0.04f),
-                    blur = 20.dp,
-                    offsetY = 5.dp
-                ),
+                shadow = System.shadow.high,
                 shape = CircleShape,
             )
             .background(Color.White, shape = CircleShape)

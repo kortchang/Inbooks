@@ -1,26 +1,23 @@
 package io.kort.inbooks.ui.token.system
 
-import androidx.compose.animation.core.FiniteAnimationSpec
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.VisibilityThreshold
-import androidx.compose.animation.core.spring
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import io.kort.inbooks.ui.token.reference.Reference
 
 data class System(
     val colors: Colors,
     val spacing: Spacing,
+    val shadow: Shadow
 ) {
     companion object {
         fun default() = System(
             colors = Colors.light(),
-            spacing = Spacing.mobile()
+            spacing = Spacing.mobile(),
+            shadow = Shadow.light()
         )
 
         val colors: Colors
@@ -32,6 +29,11 @@ data class System(
             @Composable
             @ReadOnlyComposable
             get() = LocalSystem.current.spacing
+
+        val shadow: Shadow
+            @Composable
+            @ReadOnlyComposable
+            get() = LocalSystem.current.shadow
     }
 
     class Colors(
@@ -67,6 +69,23 @@ data class System(
                 outline = Reference.Colors.Grey.L100,
                 warning = Reference.Colors.Red.L400,
             )
+
+            fun dark() = Colors(
+                surface = Reference.Colors.Grey.L700,
+                onSurface = Reference.Colors.Grey.L50,
+                onSurfaceVariant = Reference.Colors.Grey.L200,
+                background = Reference.Colors.Grey.L600,
+                onBackground = Reference.Colors.Grey.L50,
+                onBackgroundVariant = Reference.Colors.Grey.L200,
+                primary = Reference.Colors.Grey.L50,
+                onPrimary = Reference.Colors.Grey.L700,
+                secondary = Reference.Colors.Grey.L200,
+                onSecondary = Reference.Colors.Grey.L800,
+                onSecondaryVariant = Reference.Colors.Grey.L400,
+                collected = Reference.Colors.Green.L300,
+                outline = Reference.Colors.Grey.L600,
+                warning = Reference.Colors.Red.L400,
+            )
         }
     }
 
@@ -77,6 +96,42 @@ data class System(
             fun mobile() = Spacing(
                 pagePadding = 32.dp
             )
+        }
+    }
+
+    class Shadow(
+        val low: io.kort.inbooks.ui.foundation.Shadow,
+        val medium: io.kort.inbooks.ui.foundation.Shadow,
+        val high: io.kort.inbooks.ui.foundation.Shadow,
+    ) {
+        companion object {
+            fun light() =
+                Shadow(
+                    low = io.kort.inbooks.ui.foundation.Shadow.Drop(
+                        color = Reference.Colors.Black.copy(alpha = 0.15f),
+                        blur = 10.dp,
+                        offsetX = (-4).dp,
+                        offsetY = 4.dp
+                    ),
+                    medium = io.kort.inbooks.ui.foundation.Shadow.Drop(
+                        color = Reference.Colors.Black.copy(alpha = 0.08f),
+                        blur = 20.dp,
+                        offsetY = 4.dp,
+                    ),
+                    high = io.kort.inbooks.ui.foundation.Shadow.Drop(
+                        Reference.Colors.Black.copy(alpha = 0.04f),
+                        blur = 20.dp,
+                        offsetY = 5.dp
+                    )
+                )
+
+            fun dark() = Shadow(
+                low = NoShadow,
+                medium = NoShadow,
+                high = NoShadow
+            )
+
+            private val NoShadow = io.kort.inbooks.ui.foundation.Shadow.Drop(color = Color.Transparent, blur = 0.dp)
         }
     }
 }

@@ -79,7 +79,6 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.runtime)
             implementation(compose.ui)
-
             implementation(libs.androidx.annotation)
             implementation(libs.androidx.datastore.preference)
             implementation(libs.androidx.room.runtime)
@@ -154,8 +153,8 @@ android {
             libs.versions.android.targetSdk
                 .get()
                 .toInt()
-        versionCode = 5
-        versionName = "0.1.0"
+        versionCode = 7
+        versionName = "0.1.2"
     }
     packaging {
         resources {

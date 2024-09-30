@@ -13,9 +13,9 @@ import androidx.compose.ui.unit.sp
 import io.kort.inbooks.ui.resource.Res
 import io.kort.inbooks.ui.resource.app_name
 import io.kort.inbooks.ui.component.TopAppBar
-import io.kort.inbooks.ui.resource.App
-import io.kort.inbooks.ui.resource.Icons
+import io.kort.inbooks.ui.resource.app_icon
 import io.kort.inbooks.ui.token.system.System
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -32,7 +32,7 @@ fun AppBar(
                 horizontalArrangement = Arrangement.spacedBy(8.dp, alignment = horizontalAlignment),
             ) {
                 Image(
-                    Icons.App,
+                    painter = painterResource(Res.drawable.app_icon),
                     contentDescription = null,
                 )
                 Text(

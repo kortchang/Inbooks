@@ -16,15 +16,16 @@ import io.kort.inbooks.ui.token.system.System
 @Composable
 fun AppTheme(isDarkTheme: Boolean = false, content: @Composable () -> Unit) {
     val system = System(
-        colors = System.Colors.light(),
+        colors = if (isDarkTheme) System.Colors.dark() else System.Colors.light(),
         spacing = System.Spacing.mobile(),
+        shadow = if (isDarkTheme) System.Shadow.dark() else System.Shadow.light(),
     )
 
     val component = Component.default(system)
 
     val colorScheme = MaterialTheme.colorScheme.copy(
         primary = system.colors.primary,
-        surface = Color(0xFFF6F6F6)
+        surface = system.colors.onPrimary,
     )
 
     MaterialTheme(

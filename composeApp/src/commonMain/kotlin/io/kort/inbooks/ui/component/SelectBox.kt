@@ -15,11 +15,12 @@ import androidx.compose.ui.unit.dp
 import io.kort.inbooks.ui.resource.CheckSmall
 import io.kort.inbooks.ui.resource.Icons
 import io.kort.inbooks.ui.token.reference.Reference
+import io.kort.inbooks.ui.token.system.System
 
 @Composable
-fun SelectBox(modifier: Modifier = Modifier, selected: Boolean, onSelectedChange: (Boolean) -> Unit) {
-    val background = if (selected) io.kort.inbooks.ui.token.system.System.colors.primary else Reference.Colors.Transparent
-    val outline = if (selected) Reference.Colors.Transparent else Reference.Colors.Grey.L200
+fun SelectBox(selected: Boolean, onSelectedChange: (Boolean) -> Unit, modifier: Modifier = Modifier) {
+    val background = if (selected) System.colors.primary else Reference.Colors.Transparent
+    val outline = if (selected) Reference.Colors.Transparent else System.colors.primary
     Box(
         modifier = modifier
             .size(24.dp)
@@ -33,7 +34,7 @@ fun SelectBox(modifier: Modifier = Modifier, selected: Boolean, onSelectedChange
             Icon(
                 imageVector = Icons.CheckSmall,
                 contentDescription = null,
-                tint = io.kort.inbooks.ui.token.system.System.colors.onPrimary
+                tint = System.colors.onPrimary
             )
         }
     }

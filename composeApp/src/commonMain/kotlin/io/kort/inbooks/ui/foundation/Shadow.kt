@@ -52,6 +52,8 @@ sealed class Shadow {
 
 fun Modifier.shadow(shadow: Shadow, shape: Shape = RectangleShape, clip: Boolean = true) =
     composed {
+        if (shadow.color.alpha == 0f) return@composed this
+
         when (shadow) {
             is Shadow.Drop -> DropShadowModifier(shadow, shape)
             is Shadow.Inner -> InnerShadowModifier(shadow, shape)
