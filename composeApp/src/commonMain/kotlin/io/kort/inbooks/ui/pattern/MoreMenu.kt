@@ -15,6 +15,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,12 +32,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.PopupPositionProvider
 import io.kort.inbooks.ui.token.component.Component
+import io.kort.inbooks.ui.token.system.System
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MoreMenuBox(
     state: BasicTooltipState,
     backgroundColor: Color = Component.button.secondaryBackground,
+    onBackgroundColor: Color = Component.button.secondaryOnBackground,
     menuContent: @Composable() (ColumnScope.() -> Unit),
     content: @Composable () -> Unit,
 ) {
@@ -44,10 +47,12 @@ fun MoreMenuBox(
         positionProvider = rememberRichTooltipPositionProvider(12.dp),
         state = state,
         tooltip = {
-            Column(
-                modifier = Modifier.background(backgroundColor, shape = RoundedCornerShape(16.dp)),
-                content = menuContent
-            )
+            CompositionLocalProvider(LocalContentColor provides onBackgroundColor) {
+                Column(
+                    modifier = Modifier.background(backgroundColor, shape = RoundedCornerShape(16.dp)),
+                    content = menuContent
+                )
+            }
         },
         content = content
     )
