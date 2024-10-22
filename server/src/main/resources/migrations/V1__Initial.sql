@@ -1,0 +1,2 @@
+CREATE TABLE IF NOT EXISTS users (id uuid PRIMARY KEY, display_name VARCHAR(50) NOT NULL);
+CREATE TABLE IF NOT EXISTS authentications (id uuid PRIMARY KEY, user_id uuid NOT NULL, email VARCHAR(256) NOT NULL, email_verified BOOLEAN DEFAULT FALSE NOT NULL, email_verification_code VARCHAR(10) NULL, email_verification_expired_at TIMESTAMP NULL, password_hash VARCHAR(256) NULL, CONSTRAINT fk_authentications_user_id__id FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE RESTRICT ON UPDATE RESTRICT);
