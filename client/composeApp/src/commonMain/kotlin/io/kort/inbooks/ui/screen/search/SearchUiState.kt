@@ -25,8 +25,8 @@ data class SearchUiState(
     }
 }
 
-sealed class SearchUiIntent {
-    data class Search(val value: String) : SearchUiIntent()
+sealed interface SearchUiIntent {
+    data class Search(val value: String) : SearchUiIntent
 }
 
 sealed interface SearchUiEvent {

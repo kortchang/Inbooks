@@ -13,8 +13,8 @@ import io.kort.inbooks.domain.model.book.Book
 
 @Composable
 fun BookTitle(
-    modifier: Modifier = Modifier,
     book: Book,
+    modifier: Modifier = Modifier,
     additional: @Composable() (() -> Unit)? = null,
 ) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(4.dp)) {
@@ -22,7 +22,7 @@ fun BookTitle(
             text = book.title,
             fontSize = 16.sp,
             color = io.kort.inbooks.ui.token.system.System.colors.onSurface,
-            fontWeight = FontWeight.W600,
+            fontWeight = FontWeight.Medium,
             overflow = TextOverflow.Ellipsis,
         )
 
@@ -36,14 +36,4 @@ fun BookTitle(
 
         additional?.invoke()
     }
-}
-
-@Composable
-private fun ReadingReasonText(modifier: Modifier = Modifier, text: String) {
-    Text(
-        modifier = modifier,
-        text = text,
-        fontSize = 14.sp,
-        color = io.kort.inbooks.ui.token.system.System.colors.onSurface,
-    )
 }

@@ -3,7 +3,6 @@ package io.kort.inbooks.ui.screen.book.list
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ContextualFlowRow
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,9 +18,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -41,7 +37,6 @@ import io.kort.inbooks.ui.resource.book_list_empty_description
 import io.kort.inbooks.ui.resource.book_list_empty_title
 import io.kort.inbooks.ui.resource.book_list_title
 import io.kort.inbooks.ui.resource.illustration_empty_book_list
-import co.touchlab.kermit.Logger
 import io.kort.inbooks.app.di.getViewModel
 import io.kort.inbooks.domain.model.book.CollectedBook
 import io.kort.inbooks.domain.model.book.LocalYearAndMonth
@@ -71,7 +66,6 @@ import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.koin.dsl.module
 
 @Composable
 fun PageScope.BookListScreen(
@@ -139,7 +133,7 @@ private fun TopAppBar(
                 modifier = Modifier.weight(1f),
                 text = stringResource(Res.string.book_list_title),
                 fontSize = 20.sp,
-                fontWeight = FontWeight.W600,
+                fontWeight = FontWeight.Medium,
                 color = System.colors.onSurface,
             )
         },
@@ -166,7 +160,7 @@ private fun ChangeViewButton(
                 else BookListDisplayStyle.List
             )
         },
-        colors = ButtonDefaults.colorsOfSecondary(),
+        colors = ButtonDefaults.secondaryButtonColors(),
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,

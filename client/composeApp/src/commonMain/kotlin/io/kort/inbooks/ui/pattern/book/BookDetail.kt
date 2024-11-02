@@ -58,7 +58,7 @@ object BookDetailDefaults {
                 modifier = Modifier.fillMaxHeight()
                     .padding(vertical = 4.dp)
                     .width(3.dp).clip(CircleShape)
-                    .background(System.colors.outline)
+                    .background(System.colors.onSurface.copy(System.colors.outlineAlpha))
             )
             Text(
                 text = reason,

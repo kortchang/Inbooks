@@ -2,7 +2,7 @@ package io.kort.inbooks.ui.screen.topic.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.kort.inbooks.data.repository.CollectedBookRepository
+import io.kort.inbooks.domain.repository.CollectedBookRepository
 import io.kort.inbooks.domain.repository.TopicRepository
 import io.kort.inbooks.ui.foundation.started
 import kotlinx.coroutines.flow.MutableSharedFlow

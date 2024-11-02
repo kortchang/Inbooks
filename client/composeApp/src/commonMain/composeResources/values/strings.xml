@@ -10,6 +10,7 @@
     <string name="cancel">取消</string>
     <string name="save">儲存</string>
     <string name="confirm">確認</string>
+    <string name="new_tag">NEW</string>
 
     <string name="powered_by_google">powered by Google</string>
     <string name="privacy_policy_url">https://privacy-policy.inbooks.tw</string>
@@ -24,6 +25,11 @@
 
     <string name="search_book_placeholder">想找什麼書呢？</string>
     <string name="search_book_error_google_too_many_requests">不好意思，目前已達 Google 搜尋服務上限（每天重置一次）</string>
+    <string name="search_book_add_by_link_books_tw_title">透過博客來連結新增</string>
+    <string name="search_book_add_by_link_books_tw_placeholder">博客來書籍連結</string>
+    <string name="search_book_add_by_link_books_tw_analyzing">分析連結中...</string>
+    <string name="search_book_add_by_link_books_tw_error">連結分析失敗</string>
+    <string name="search_book_add_by_link_books_tw_reenter">重新輸入連結</string>
 
     <string name="searched_book_detail_collect">收藏</string>
 

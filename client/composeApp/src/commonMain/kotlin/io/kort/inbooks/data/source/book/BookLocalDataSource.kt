@@ -39,6 +39,15 @@ interface BookLocalDataSource {
     }
 
     @Transaction
+    @Query(
+        """
+            SELECT * FROM books
+            WHERE id = :id        
+        """
+    )
+    suspend fun getById(id: BookId): BookLocalModel?
+
+    @Transaction
     suspend fun getBookIdByExternalIds(
         externalIds: List<Pair<BookLocalModel.ExternalIdLocalModel.Type, String>>
     ): BookId? {
@@ -65,6 +74,7 @@ interface BookLocalDataSource {
         externalIdType: BookLocalModel.ExternalIdLocalModel.Type,
         externalIdValue: String,
     ): BookId?
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun upsertBook(book: BookLocalModel.BasicBookLocalModel)

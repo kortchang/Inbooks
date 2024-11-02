@@ -101,7 +101,7 @@ private fun SmallBookRow(
             text = book.title,
             fontSize = 14.sp,
             color = Color(0xFF2A2A2A),
-            fontWeight = FontWeight.W600,
+            fontWeight = FontWeight.Medium,
             maxLines = 1,
         )
     }

@@ -95,7 +95,7 @@ private fun Footer(
                 )
             },
             onClick = onStartClick,
-            colors = ButtonDefaults.colorsOfSecondary(),
+            colors = ButtonDefaults.secondaryButtonColors(),
         )
         PrivacyPolicyText()
     }

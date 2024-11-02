@@ -22,7 +22,7 @@ val Icons.Plus: ImageVector
         ).apply {
             path(
                 stroke = SolidColor(Color(0xFF6F6F6F)),
-                strokeLineWidth = 2f,
+                strokeLineWidth = 1.5f,
                 strokeLineCap = StrokeCap.Round,
                 strokeLineJoin = StrokeJoin.Round
             ) {

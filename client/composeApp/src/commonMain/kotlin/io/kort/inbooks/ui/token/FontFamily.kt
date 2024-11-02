@@ -24,7 +24,7 @@ fun RubikFontFamily() = FontFamily(
         ),
         Font(
             Res.font.rubik_variable,
-            weight = FontWeight.W600,
+            weight = FontWeight.Medium,
         )
     )
 )

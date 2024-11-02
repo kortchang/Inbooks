@@ -40,6 +40,7 @@ data class BookLocalModel(
     @Entity(tableName = "books")
     data class BasicBookLocalModel(
         @PrimaryKey @ColumnInfo("id") val id: String,
+        @ColumnInfo("source") val source: Source,
         @ColumnInfo("cover_url") val coverUrl: String?,
         @ColumnInfo("title") val title: String,
         @ColumnInfo("subtitle") val subtitle: String?,
@@ -47,7 +48,12 @@ data class BookLocalModel(
         @ColumnInfo("published_date") val publishedDate: String?,
         @ColumnInfo("publisher") val publisher: String?,
         @ColumnInfo("page_count") val pageCount: Int?,
-    )
+    ) {
+        enum class Source(val serialName: String) {
+            GoogleBookApi("google_book_api"),
+            BooksUrl("books_url"),
+        }
+    }
 
     @Entity(
         tableName = "book_external_ids",
@@ -70,6 +76,7 @@ data class BookLocalModel(
         enum class Type(val serialName: String) {
             ISBN13("isbn_13"),
             GoogleBookId("google_book_id"),
+            BooksUrl("books_url"),
         }
     }
 

@@ -2,8 +2,7 @@ package io.kort.inbooks.ui.screen.topic.edit.book
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import co.touchlab.kermit.Logger
-import io.kort.inbooks.data.repository.CollectedBookRepository
+import io.kort.inbooks.domain.repository.CollectedBookRepository
 import io.kort.inbooks.domain.model.topic.TopicBook
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine

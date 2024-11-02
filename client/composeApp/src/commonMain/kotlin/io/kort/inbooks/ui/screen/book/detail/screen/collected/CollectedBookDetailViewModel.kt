@@ -2,7 +2,7 @@ package io.kort.inbooks.ui.screen.book.detail.screen.collected
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.kort.inbooks.data.repository.CollectedBookRepository
+import io.kort.inbooks.domain.repository.CollectedBookRepository
 import io.kort.inbooks.domain.model.book.CollectedBook
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay

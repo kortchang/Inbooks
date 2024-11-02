@@ -3,41 +3,45 @@ agp = "8.5.2"
 android-compileSdk = "34"
 android-minSdk = "28"
 android-targetSdk = "34"
-androidx-annotation = "1.9.0"
+androidx-annotation = "1.9.1"
 androidx-activityCompose = "1.9.3"
 androidx-core-splashscreen = "1.0.1"
 androidx-datastore = "1.1.1"
-androidx-room = "2.7.0-alpha10"
-androidx-sqlite = "2.5.0-alpha10"
+androidx-room = "2.7.0-alpha11"
+androidx-sqlite = "2.5.0-alpha11"
+androidx-test = "1.6.1"
 arrow = "1.2.4"
 buildconfig = "5.3.5"
 bcrypt = "0.10.2"
 coil = "3.0.0-alpha10"
 compose-plugin = "1.7.0"
+docker-compose = "0.17.10"
 exposed = "0.55.0"
 flyway = "10.19.0"
+jetbrain-androidx-compose-material-navigation = "1.7.0-beta02"
 jetbrain-androidx-lifecycle = "2.8.3"
-jetbrain-nvaigation-compose = "2.8.0-alpha09"
+jetbrain-nvaigation-compose = "2.8.0-alpha10"
 junit = "4.13.2"
 mockk = "1.13.13"
 kamel = "0.9.5"
 kermit = "2.0.4"
 kmpalette = "3.1.0"
 koin = "3.5.6"
-oldKotest = "5.9.1"
 kotest = "6.0.0.M1"
-kotlin = "2.0.10"
+kotlin = "2.0.21"
 kotlinx-collections-immutable = "0.3.7"
 kotlinx-datetime = "0.6.1"
 kotlinx-serialization-json = "1.7.3"
-kotlinx-rpc = "0.3.0"
-ksp = "2.0.10-1.0.24"
-ktor = "3.0.0-rc-2"
+ksp = "2.0.20-1.0.24"
+ksoup = "0.2.0"
+ktor = "3.0.1"
 logback = "1.5.7"
 postgres = "42.7.4"
 resend = "4.0.0"
 richeditor = "1.0.0-rc05"
+roboletric = "4.8.1"
 uuid = "0.8.4"
+junitKtx = "1.2.1"
 
 [libraries]
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
@@ -47,7 +51,10 @@ androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", versi
 androidx-datastore-preference = { module = "androidx.datastore:datastore-preferences", version.ref = "androidx-datastore" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidx-room" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidx-room" }
+androidx-room-testing = { group = "androidx.room", name = "room-testing", version.ref = "androidx-room" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 androidx-sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "androidx-sqlite" }
+androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidx-test" }
 arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
 arrow-core-serialization = { module = "io.arrow-kt:arrow-core-serialization", version.ref = "arrow" }
 bcrypt = { module = "at.favre.lib:bcrypt", version.ref = "bcrypt" }
@@ -63,6 +70,7 @@ exposed-migration = { module = "org.jetbrains.exposed:exposed-migration" }
 exposed-kotlin-datetime = { module = "org.jetbrains.exposed:exposed-kotlin-datetime" }
 flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
 flyway-database-postgresql = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
+jetbrain-androidx-compose-material-navigation = { module = "org.jetbrains.compose.material:material-navigation", version.ref = "jetbrain-androidx-compose-material-navigation" }
 jetbrain-androidx-lifecycle-common = { module = "org.jetbrains.androidx.lifecycle:lifecycle-common", version.ref = "jetbrain-androidx-lifecycle" }
 jetbrain-androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "jetbrain-nvaigation-compose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -80,7 +88,6 @@ koin-ktor = { group = "io.insert-koin", name = "koin-ktor" }
 kotest-assertions-arrow = { module = "io.kotest.extensions:kotest-assertions-arrow", version = "1.4.0" }
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-framework-engine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
-kotest-framework-datatest = { module = "io.kotest:kotest-framework-datatest", version.ref = "oldKotest" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 kotest-extension-ktor = { module = "io.kotest.extensions:kotest-assertions-ktor", version = "2.0.0" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -89,19 +96,16 @@ kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collec
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization-json" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
-kotlinx-rpc-core = { module = "org.jetbrains.kotlinx:kotlinx-rpc-core" }
-kotlinx-rpc-krpc-client = { module = "org.jetbrains.kotlinx:kotlinx-rpc-krpc-client" }
-kotlinx-rpc-krpc-server = { module = "org.jetbrains.kotlinx:kotlinx-rpc-krpc-server" }
-kotlinx-rpc-krpc-ktor-client = { module = "org.jetbrains.kotlinx:kotlinx-rpc-krpc-ktor-client" }
-kotlinx-rpc-krpc-ktor-server = { module = "org.jetbrains.kotlinx:kotlinx-rpc-krpc-ktor-server" }
-kotlinx-rpc-krpc-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-rpc-krpc-serialization-json" }
+ksoup = { module = "com.fleeksoft.ksoup:ksoup", version.ref = "ksoup" }
+ksoup-network = { module = "com.fleeksoft.ksoup:ksoup-network", version.ref = "ksoup" }
 ktor-bom = { group = "io.ktor", name = "ktor-bom", version.ref = "ktor" }
 ktor-client-android = { group = "io.ktor", name = "ktor-client-android" }
 ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core" }
 ktor-client-darwin = { group = "io.ktor", name = "ktor-client-darwin" }
 ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging" }
-ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock" }
+ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
+ktor-client-mock-jvm = { group = "io.ktor", name = "ktor-client-mock-jvm", version.ref = "ktor" }
 ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json" }
 ktor-server-core-jvm = { group = "io.ktor", name = "ktor-server-core-jvm" }
 ktor-server-auth-jvm = { group = "io.ktor", name = "ktor-server-auth-jvm" }
@@ -109,11 +113,14 @@ ktor-server-auth-jwt-jvm = { group = "io.ktor", name = "ktor-server-auth-jwt-jvm
 ktor-server-content-negotiation-jvm = { group = "io.ktor", name = "ktor-server-content-negotiation-jvm" }
 ktor-server-netty-jvm = { group = "io.ktor", name = "ktor-server-netty-jvm" }
 ktor-server-test-host-jvm = { group = "io.ktor", name = "ktor-server-test-host-jvm" }
+ktor-server-resources = { group = "io.ktor", name = "ktor-server-resources" }
+ktor-server-status-pages = { group = "io.ktor", name = "ktor-server-status-pages" }
 ktor-serialization-kotlinx-json-jvm = { group = "io.ktor", name = "ktor-serialization-kotlinx-json-jvm" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 postgres = { module = "org.postgresql:postgresql", version.ref = "postgres" }
 resend = { module = "com.resend:resend-java", version.ref = "resend" }
 richeditor = { module = "com.mohamedrejeb.richeditor:richeditor-compose", version.ref = "richeditor" }
+roboletric = { module = "org.robolectric:robolectric", version.ref = "roboletric" }
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
 
 [plugins]
@@ -122,13 +129,13 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 androidxRoom = { id = "androidx.room", version.ref = "androidx-room" }
 buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+docker-compose = { id = "com.avast.gradle.docker-compose", version.ref = "docker-compose" }
 flyway = { id = "org.flywaydb.flyway", version.ref = "flyway" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotestMultiplatform = { id = "io.kotest.multiplatform", version.ref = "kotest" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-kotlinxRpc = { id = "org.jetbrains.kotlinx.rpc.plugin", version.ref = "kotlinx-rpc" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
 
@@ -141,12 +148,14 @@ ktor-client = [
 ]
 
 ktor-server = [
+    "ktor-serialization-kotlinx-json-jvm",
     "ktor-server-auth-jvm",
     "ktor-server-auth-jwt-jvm",
     "ktor-server-content-negotiation-jvm",
     "ktor-server-core-jvm",
     "ktor-server-netty-jvm",
-    "ktor-serialization-kotlinx-json-jvm",
+    "ktor-server-resources",
+    "ktor-server-status-pages",
 ]
 
 exposed = [

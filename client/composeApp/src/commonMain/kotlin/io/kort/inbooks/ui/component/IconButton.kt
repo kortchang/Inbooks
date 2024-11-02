@@ -11,7 +11,7 @@ fun IconButton(
     icon: ImageVector,
     contentDescription: String? = null,
     onClick: () -> Unit,
-    colors: ButtonColors = ButtonDefaults.colorsOfBackground(),
+    colors: ButtonColors = ButtonDefaults.backgroundButtonColors(),
 ) {
     Button(
         modifier = modifier,

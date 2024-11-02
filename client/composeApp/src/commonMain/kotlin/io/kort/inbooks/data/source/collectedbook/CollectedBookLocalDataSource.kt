@@ -16,10 +16,11 @@ import kotlinx.datetime.Instant
 @Dao
 interface CollectedBookLocalDateSource : BookLocalDataSource, ForDashboard {
     @Transaction
-    suspend fun insert(collectedBook: CollectedBookLocalModel) {
+    suspend fun insert(collectedBook: CollectedBookLocalModel): BookId {
         val existOrNewBookId = insert(collectedBook.book)
         insertOrIgnoreBasicCollectBook(collectedBook.basic.copy(bookId = existOrNewBookId))
         insertOrIgnoreReadingEvent(collectedBook.readingEvents.map { it.copy(bookId = existOrNewBookId) })
+        return existOrNewBookId
     }
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

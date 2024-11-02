@@ -1,6 +1,6 @@
 package io.kort.inbooks.domain.usecase
 
-import io.kort.inbooks.data.repository.CollectedBookRepository
+import io.kort.inbooks.domain.repository.CollectedBookRepository
 import io.kort.inbooks.domain.model.book.SearchedBook
 import kotlinx.coroutines.flow.first
 

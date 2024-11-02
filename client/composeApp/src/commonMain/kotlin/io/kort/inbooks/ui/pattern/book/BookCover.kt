@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -22,6 +23,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -67,12 +69,14 @@ fun BookCover(
                 modifier = Modifier
                     .then(clickModifier)
                     .then(coverNotExistModifier)
-                    .background(Color(0xFFA0A0A0))
+                    .background(Color(0xFFA0A0A0), shape = RoundedCornerShape(3.dp))
+                    .padding(2.dp),
             ) {
                 Text(
-                    modifier = Modifier.align(Alignment.BottomStart),
+                    modifier = Modifier.align(Alignment.BottomCenter),
                     text = book.title,
                     fontSize = 14.sp,
+                    textAlign = TextAlign.Center,
                     maxLines = 2,
                     color = Reference.Colors.White
                 )
@@ -181,7 +185,7 @@ data class BookCoverShareStyle(
 
 object BookCoverDefaults {
     fun layout(
-        fillBy: BookCoverLayoutStyle.FillBy = BookCoverLayoutStyle.FillBy.Width.Medium,
+        fillBy: BookCoverLayoutStyle.FillBy = BookCoverLayoutStyle.FillBy.Height.Medium,
     ) = BookCoverLayoutStyle(
         fillBy = fillBy
     )

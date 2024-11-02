@@ -1,8 +1,11 @@
+import com.android.build.gradle.internal.scope.ProjectInfo.Companion.getBaseName
+import org.jetbrains.kotlin.gradle.tasks.KotlinNativeLink
+import org.jetbrains.kotlin.org.apache.commons.io.FileUtils
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.kotestMultiplatform)
-    alias(libs.plugins.kotlinxRpc)
 }
 
 kotlin {
@@ -14,17 +17,17 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.kotlinx.datetime)
-            implementation(libs.kotlinx.rpc.core)
             implementation(libs.kotlinx.serialization.core)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.arrow.core)
             implementation(libs.arrow.core.serialization)
+            implementation(libs.ksoup)
+            implementation(libs.ksoup.network)
         }
 
         commonTest.dependencies {
             implementation(libs.kotest.assertions.core)
             implementation(libs.kotest.framework.engine)
-            implementation(libs.kotest.framework.datatest)
             implementation(kotlin("test-common"))
         }
 

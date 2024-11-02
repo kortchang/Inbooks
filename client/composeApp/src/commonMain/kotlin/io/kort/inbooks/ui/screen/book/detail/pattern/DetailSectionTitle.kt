@@ -70,7 +70,7 @@ fun DetailSectionTitle(
             modifier = Modifier.weight(1f),
             text = title,
             fontSize = 20.sp,
-            fontWeight = FontWeight.W600,
+            fontWeight = FontWeight.Medium,
             maxLines = 1,
             color = Color(0xFF4A4A4A),
         )

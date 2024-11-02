@@ -1,4 +1,4 @@
-package io.kort.inbooks.data.repository
+package io.kort.inbooks.domain.repository
 
 import io.kort.inbooks.domain.model.book.Book
 import io.kort.inbooks.domain.model.book.BookId

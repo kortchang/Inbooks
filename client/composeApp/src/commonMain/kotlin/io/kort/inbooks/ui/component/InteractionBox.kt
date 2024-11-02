@@ -12,12 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import io.kort.inbooks.ui.token.system.System
 
 @Composable
 fun InteractionBox(
     modifier: Modifier = Modifier,
+    colors: InteractionBoxColors = InteractionBoxDefaults.colorsOfBackground(),
     rounded: Boolean = false,
     contentAlignment: Alignment = Alignment.TopStart,
     content: @Composable BoxScope.() -> Unit,
@@ -25,14 +27,36 @@ fun InteractionBox(
     val shape = if (rounded) CircleShape else RoundedCornerShape(16.dp)
     Box(
         modifier
-            .border(1.dp, System.colors.outline, shape = shape)
-            .background(System.colors.background, shape = shape)
+            .border(1.dp, colors.onBackground.copy(alpha = System.colors.outlineAlpha), shape = shape)
+            .background(colors.background, shape = shape)
             .padding(16.dp),
         contentAlignment = contentAlignment,
     ) {
-        CompositionLocalProvider(LocalContentColor provides System.colors.onBackground) {
+        CompositionLocalProvider(LocalContentColor provides colors.onBackground) {
             content()
         }
     }
 }
 
+data class InteractionBoxColors(
+    val background: Color,
+    val onBackground: Color,
+)
+
+object InteractionBoxDefaults {
+    @Composable
+    fun colorsOfBackground(): InteractionBoxColors {
+        return InteractionBoxColors(
+            background = System.colors.background,
+            onBackground = System.colors.onBackground,
+        )
+    }
+
+    @Composable
+    fun colorsOfSecondary(): InteractionBoxColors {
+        return InteractionBoxColors(
+            background = System.colors.secondary,
+            onBackground = System.colors.onSecondary,
+        )
+    }
+}

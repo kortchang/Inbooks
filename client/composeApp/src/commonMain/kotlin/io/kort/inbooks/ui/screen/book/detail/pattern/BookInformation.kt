@@ -13,6 +13,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,6 +28,7 @@ import io.kort.inbooks.ui.resource.book_detail_published_date_title
 import io.kort.inbooks.ui.resource.book_detail_publisher_title
 import com.mohamedrejeb.richeditor.model.rememberRichTextState
 import com.mohamedrejeb.richeditor.ui.material3.RichText
+import io.kort.inbooks.data.source.book.BookLocalModel
 import io.kort.inbooks.domain.model.book.Book
 import io.kort.inbooks.ui.token.system.System
 import org.jetbrains.compose.resources.stringResource
@@ -47,6 +49,7 @@ fun BookInformation(
                 onLoad = { descriptionLoaded = true }
             )
         }
+
         val items = remember(book) {
             listOfNotNull(
                 book.publishedDate?.let { Res.string.book_detail_published_date_title to it },
@@ -54,6 +57,7 @@ fun BookInformation(
                 book.categories?.firstOrNull()?.let { Res.string.book_detail_category_title to it }
             )
         }
+
         if (descriptionLoaded && items.isNotEmpty()) {
             Spacer(Modifier.height(32.dp))
             FlowRow(
@@ -70,7 +74,7 @@ fun BookInformation(
                         Text(
                             text = value,
                             fontSize = 16.sp,
-                            fontWeight = FontWeight.W600,
+                            fontWeight = FontWeight.Medium,
                             color = colors.onColor,
                         )
                     }
@@ -82,9 +86,9 @@ fun BookInformation(
 
 @Composable
 private fun Subtitle(
-    modifier: Modifier = Modifier,
     text: String,
     color: Color,
+    modifier: Modifier = Modifier,
 ) {
     Text(
         modifier = modifier,
@@ -102,10 +106,11 @@ private fun Description(
 ) {
     val richTextState = rememberRichTextState()
     var isLoad by remember(description) { mutableStateOf(false) }
+    val updatedOnLoad by rememberUpdatedState(onLoad)
     LaunchedEffect(description) {
         richTextState.setHtml(description)
         isLoad = true
-        onLoad()
+        updatedOnLoad()
     }
 
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -120,6 +125,22 @@ private fun Description(
             color = colors.onColor,
             overflow = TextOverflow.Ellipsis,
         )
+    }
+}
+
+@Composable
+private fun DataSource(
+    source: BookLocalModel.BasicBookLocalModel.Source,
+    externalIds: List<Book.ExternalId>,
+    colors: BookInformationColors,
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Subtitle(
+            text = stringResource(Res.string.book_detail_description_title),
+            color = colors.onColorVariant,
+        )
+
+//        Text()
     }
 }
 

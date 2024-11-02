@@ -1,6 +1,6 @@
 package io.kort.inbooks.data.source.seachbook
 
-import io.kort.inbooks.data.source.book.BookRemoteModel
+import io.kort.inbooks.common.model.book.BookRemoteModel
 import io.kort.inbooks.domain.model.book.Book
 
 interface SearchBookRemoteDataSource {

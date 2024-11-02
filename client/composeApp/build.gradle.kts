@@ -1,5 +1,9 @@
+import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
+import org.jetbrains.kotlin.gradle.tasks.KotlinNativeLink
+import org.jetbrains.kotlin.org.apache.commons.io.FileUtils
 import java.util.Properties
 
 plugins {
@@ -11,7 +15,6 @@ plugins {
     alias(libs.plugins.kotestMultiplatform)
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinSerialization)
-    alias(libs.plugins.kotlinxRpc)
     alias(libs.plugins.ksp)
 }
 
@@ -37,15 +40,16 @@ compose {
 }
 
 composeCompiler {
-//    featureFlags = setOf(
-//        ComposeFeatureFlag.StrongSkipping,
-//        ComposeFeatureFlag.OptimizeNonSkippingGroups,
-//        ComposeFeatureFlag.IntrinsicRemember,
-//    )
+    featureFlags = setOf(
+        ComposeFeatureFlag.StrongSkipping,
+        ComposeFeatureFlag.OptimizeNonSkippingGroups,
+        ComposeFeatureFlag.IntrinsicRemember,
+    )
 }
 
 kotlin {
     androidTarget {
+        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
@@ -73,11 +77,10 @@ kotlin {
     }
 
     dependencies {
-        ksp(libs.androidx.room.compiler)
-//        add("kspAndroid", libs.androidx.room.compiler)
-//        add("kspIosSimulatorArm64", libs.androidx.room.compiler)
-//        add("kspIosX64", libs.androidx.room.compiler)
-//        add("kspIosArm64", libs.androidx.room.compiler)
+        add("kspAndroid", libs.androidx.room.compiler)
+        add("kspIosSimulatorArm64", libs.androidx.room.compiler)
+        add("kspIosX64", libs.androidx.room.compiler)
+        add("kspIosArm64", libs.androidx.room.compiler)
     }
 
     sourceSets {
@@ -97,6 +100,7 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor3)
             implementation(libs.jetbrain.androidx.lifecycle.common)
+            implementation(libs.jetbrain.androidx.compose.material.navigation)
             implementation(libs.jetbrain.androidx.navigation.compose)
             implementation(libs.kamel)
             implementation(libs.kermit)
@@ -109,9 +113,6 @@ kotlin {
             implementation(libs.kotlinx.collections.immutable)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
-            implementation(libs.kotlinx.rpc.core)
-            implementation(libs.kotlinx.rpc.krpc.client)
-            implementation(libs.kotlinx.rpc.krpc.ktor.client)
             implementation(project.dependencies.platform(libs.ktor.bom))
             implementation(libs.bundles.ktor.client)
             implementation(libs.richeditor)
@@ -119,9 +120,9 @@ kotlin {
         }
 
         commonTest.dependencies {
+            implementation(libs.androidx.room.testing)
             implementation(libs.kotest.assertions.core)
             implementation(libs.kotest.framework.engine)
-            implementation(libs.kotest.framework.datatest)
             implementation(libs.kotlin.test)
             implementation(libs.ktor.client.mock)
         }
@@ -135,8 +136,11 @@ kotlin {
             implementation(libs.ktor.client.android)
         }
 
-        androidNativeTest.dependencies {
-            implementation(libs.kotest.runner.junit5)
+        androidInstrumentedTest.dependencies {
+            implementation(libs.androidx.test.core)
+            implementation(libs.androidx.room.testing)
+            implementation(libs.androidx.junit.ktx)
+            implementation(libs.ktor.client.mock.jvm)
         }
 
         iosMain.dependencies {
@@ -191,6 +195,11 @@ android {
         compose = true
         buildConfig = true
     }
+
+    sourceSets {
+        getByName("androidTest").assets.srcDir("$projectDir/schemas")
+    }
+
     dependencies {
         debugImplementation(compose.uiTooling)
     }
@@ -198,6 +207,20 @@ android {
         unitTests.all {
             it.useJUnitPlatform()
         }
-        unitTests.isReturnDefaultValues = true
+        unitTests {
+            isReturnDefaultValues = true
+            isIncludeAndroidResources = true
+        }
+    }
+}
+
+// 把 schemas 複製到 ios test 拿得到的地方
+tasks.withType(KotlinNativeLink::class.java).forEach { task ->
+    if (task.name.contains("linkDebugTestIos")) {
+        val inputSchemaDir = layout.projectDirectory.dir("schemas").asFile
+        val outputSchemaDir = File(task.destinationDirectory.asFile.get(), "/schemas")
+        task.doLast {
+            FileUtils.copyDirectory(inputSchemaDir, outputSchemaDir)
+        }
     }
 }

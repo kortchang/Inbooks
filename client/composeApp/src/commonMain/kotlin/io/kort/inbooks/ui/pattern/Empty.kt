@@ -38,7 +38,7 @@ fun Empty(
                 text = title,
                 color = System.colors.onSurface,
                 fontSize = 20.sp,
-                fontWeight = FontWeight.W600,
+                fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Center,
                 minLines = 2,
             )

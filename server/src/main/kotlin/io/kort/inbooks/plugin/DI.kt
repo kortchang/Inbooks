@@ -11,7 +11,7 @@ import org.koin.ktor.plugin.Koin
 import org.koin.ktor.plugin.koin
 
 fun Application.configureDI() {
-    install(Koin) {
+    koin {
         logger(object : Logger() {
             override fun display(level: Level, msg: MESSAGE) {
                 val level = when (level) {
@@ -24,9 +24,7 @@ fun Application.configureDI() {
                 environment.log.atLevel(level).log("[Koin] $msg")
             }
         })
-    }
 
-    koin {
         val applicationModule = org.koin.dsl.module {
             single { environment }
         }

@@ -5,19 +5,24 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalWithComputedDefaultOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 data class Component(
     val button: Button,
 ) {
     data class Button(
-        val backgroundBackground: Color,
-        val backgroundOnBackground: Color,
-        val primaryBackground: Color,
-        val primaryOnBackground: Color,
-        val secondaryBackground: Color,
-        val secondaryOnBackground: Color,
-        val warningOnBackground: Color,
+        val backgroundButtonBackground: Color,
+        val backgroundButtonOnBackground: Color,
+        val primaryButtonBackground: Color,
+        val primaryButtonOnBackground: Color,
+        val secondaryButtonBackground: Color,
+        val secondaryButtonOnBackground: Color,
+        val warningTextButtonOnBackground: Color,
+        val outlineButtonOnBackground: Color,
+        val outlineButtonOutlineAlpha: Float,
+        val outlineButtonStrokeWidth: Dp,
         val disabledAlpha: Float,
         val typography: TextStyle
     )
@@ -26,13 +31,16 @@ data class Component(
         fun default(system: io.kort.inbooks.ui.token.system.System): Component {
             return Component(
                 button = Button(
-                    backgroundBackground = system.colors.background,
-                    backgroundOnBackground = system.colors.onBackground,
-                    primaryBackground = system.colors.primary,
-                    primaryOnBackground = system.colors.onPrimary,
-                    secondaryBackground = system.colors.secondary,
-                    secondaryOnBackground = system.colors.onSecondary,
-                    warningOnBackground = system.colors.warning,
+                    backgroundButtonBackground = system.colors.background,
+                    backgroundButtonOnBackground = system.colors.onBackground,
+                    primaryButtonBackground = system.colors.primary,
+                    primaryButtonOnBackground = system.colors.onPrimary,
+                    secondaryButtonBackground = system.colors.secondary,
+                    secondaryButtonOnBackground = system.colors.onSecondary,
+                    warningTextButtonOnBackground = system.colors.warning,
+                    outlineButtonOnBackground = system.colors.onBackground,
+                    outlineButtonOutlineAlpha = system.colors.outlineAlpha,
+                    outlineButtonStrokeWidth = 1.dp,
                     disabledAlpha = 0.5f,
                     typography = TextStyle(
                         fontSize = 16.sp,

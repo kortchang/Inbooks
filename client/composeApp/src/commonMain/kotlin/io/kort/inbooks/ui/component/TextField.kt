@@ -28,6 +28,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import io.kort.inbooks.ui.token.system.System
 
+
 @Composable
 fun TextField(
     initialValue: String,
@@ -43,15 +44,37 @@ fun TextField(
     val updatedOnValueChange by rememberUpdatedState(onValueChange)
     LaunchedEffect(Unit) {
         snapshotFlow { value }
-            .debounce(500)
             .distinctUntilChanged()
             .collectLatest { updatedOnValueChange(it.text) }
     }
 
+    TextField(
+        value = value,
+        onValueChange = { value = it },
+        modifier = modifier,
+        title = title,
+        placeholder = placeholder,
+        end = end,
+        singleLine = singleLine,
+        rounded = rounded,
+    )
+}
+
+@Composable
+fun TextField(
+    value: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
+    modifier: Modifier = Modifier,
+    title: String? = null,
+    placeholder: String? = null,
+    end: @Composable () -> Unit = {},
+    singleLine: Boolean = false,
+    rounded: Boolean = false,
+) {
     BasicTextField(
         modifier = modifier.dontClearFocus(),
         value = value,
-        onValueChange = { value = it },
+        onValueChange = onValueChange,
         textStyle = TextStyle(
             color = System.colors.onBackground,
             fontSize = 16.sp

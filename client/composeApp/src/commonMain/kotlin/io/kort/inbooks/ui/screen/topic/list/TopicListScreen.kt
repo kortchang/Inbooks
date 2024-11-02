@@ -79,7 +79,7 @@ private fun TopAppBar(
                 modifier = Modifier.weight(1f),
                 text = stringResource(Res.string.topic_list_title),
                 fontSize = 20.sp,
-                fontWeight = FontWeight.W600,
+                fontWeight = FontWeight.Medium,
                 color = System.colors.onSurface,
             )
         },
@@ -87,7 +87,7 @@ private fun TopAppBar(
             IconButton(
                 icon = Icons.Plus,
                 onClick = onAdd,
-                colors = ButtonDefaults.colorsOfSecondary()
+                colors = ButtonDefaults.secondaryButtonColors()
             )
         }
     )

@@ -1,7 +1,8 @@
 package io.kort.inbooks.data.source.seachbook
 
-import io.kort.inbooks.data.source.book.BookLocalModel
-import io.kort.inbooks.data.source.book.BookRemoteModel
+import io.kort.inbooks.common.model.book.BookRemoteModel
+import io.kort.inbooks.data.converter.toDomainModel
+import io.kort.inbooks.data.converter.toLocalModel
 import io.kort.inbooks.data.source.book.BookLocalDataSource
 import io.kort.inbooks.data.source.seachbook.google.BookGoogleRemoteDataSource
 import io.kort.inbooks.domain.model.book.Book
@@ -38,12 +39,9 @@ class SearchBookCombinedRemoteDataSource(
 
     private suspend fun BookRemoteModel.replaceBookIfByLocalIfNeeded(): BookRemoteModel {
         val existBookId = localBooksDataSource
-            .getBookIdByExternalIds(externalIds = externalIds.map { it.type.toLocalModel() to it.value })
+            .getBookIdByExternalIds(
+                externalIds = externalIds.map { it.type.toDomainModel().toLocalModel() to it.value }
+            )
         return if (existBookId != null) copy(id = existBookId) else this
-    }
-
-    private fun BookRemoteModel.ExternalId.Type.toLocalModel() = when (this) {
-        BookRemoteModel.ExternalId.Type.ISBN13 -> BookLocalModel.ExternalIdLocalModel.Type.ISBN13
-        BookRemoteModel.ExternalId.Type.GoogleBookId -> BookLocalModel.ExternalIdLocalModel.Type.GoogleBookId
     }
 }

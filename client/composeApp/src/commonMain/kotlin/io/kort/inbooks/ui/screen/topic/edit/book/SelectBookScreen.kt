@@ -284,7 +284,7 @@ private fun YearAndMonth(
                     text = countOfSelected.toString(),
                     color = System.colors.onSecondary,
                     fontSize = 16.sp,
-                    fontWeight = FontWeight.W600,
+                    fontWeight = FontWeight.Medium,
                 )
             }
         }
@@ -312,7 +312,7 @@ private fun ConfirmButton(
             SaveButtonBookThumbnail(selectedBooks)
         },
         onClick = onClick,
-        colors = ButtonDefaults.colorsOfSecondary(),
+        colors = ButtonDefaults.secondaryButtonColors(),
     )
 }
 

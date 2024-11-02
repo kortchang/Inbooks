@@ -1,10 +1,10 @@
 package io.kort.inbooks.data.source.seachbook.google
 
+import io.kort.inbooks.common.model.book.BookRemoteModel
+import io.kort.inbooks.common.service.book.ISBNConverter
 import io.kort.inbooks.data.source.AppHttpClient
-import io.kort.inbooks.data.source.book.BookRemoteModel
 import io.kort.inbooks.data.source.seachbook.SearchBookRemoteDataSource
 import io.kort.inbooks.domain.model.book.Book
-import io.kort.inbooks.domain.model.book.isbn10ToIsbn13
 import io.kort.inbooks.domain.repository.SearchBookError
 import io.ktor.client.call.body
 import io.ktor.client.engine.HttpClientEngine
@@ -13,7 +13,6 @@ import io.ktor.client.plugins.HttpResponseValidator
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
-import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.URLProtocol
@@ -107,17 +106,18 @@ class BookGoogleRemoteDataSource(
         val isbn13 = volumeInfo.industryIdentifiers?.run {
             firstOrNull { it.type.equals("isbn_13", true) }?.identifier
                 ?: firstOrNull { it.type.equals("isbn_10", true) }?.identifier?.let {
-                    isbn10ToIsbn13(it)
+                    ISBNConverter.convertTo13(it).getOrNull()
                 }
         }
 
         val externalIds = listOfNotNull(
-            isbn13?.let { BookRemoteModel.ExternalId(BookRemoteModel.ExternalId.Type.ISBN13, it) },
-            BookRemoteModel.ExternalId(BookRemoteModel.ExternalId.Type.GoogleBookId, id)
+            isbn13?.let { BookRemoteModel.ExternalIdRemoteModel(BookRemoteModel.ExternalIdRemoteModel.Type.ISBN13, it) },
+            BookRemoteModel.ExternalIdRemoteModel(BookRemoteModel.ExternalIdRemoteModel.Type.GoogleBookId, id)
         )
 
         return BookRemoteModel(
             id = Uuid.random().toString(),
+            source = BookRemoteModel.Source.GoogleBookApi,
             externalIds = externalIds,
             coverUrl = volumeInfo.imageLinks?.thumbnail,
             title = volumeInfo.title,

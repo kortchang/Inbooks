@@ -14,6 +14,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLayoutDirection
 import io.kort.inbooks.ui.foundation.ClearFocusBox
 import io.kort.inbooks.ui.foundation.LocalNavigationAnimatedContentScope
 import io.kort.inbooks.ui.pattern.bottomAppBar
@@ -25,18 +26,20 @@ fun AnimatedContentScope.Page(
     contentAlignment: Alignment = Alignment.TopStart,
     content: @Composable PageScope.() -> Unit,
 ) {
-    val pagePadding =
+    val pagePadding = System.spacing.pagePadding
+    val layoutDirection = LocalLayoutDirection.current
+    val pagePaddingWindowInsets =
         WindowInsets(
-            System.spacing.pagePadding,
-            System.spacing.pagePadding,
-            System.spacing.pagePadding,
-            System.spacing.pagePadding,
+            pagePadding.calculateLeftPadding(layoutDirection),
+            pagePadding.calculateTopPadding(),
+            pagePadding.calculateRightPadding(layoutDirection),
+            pagePadding.calculateBottomPadding(),
         )
 
     val windowInsets =
         WindowInsets.systemBars
             .union(WindowInsets.bottomAppBar)
-            .add(pagePadding)
+            .add(pagePaddingWindowInsets)
 
     CompositionLocalProvider(LocalNavigationAnimatedContentScope provides this) {
         Box(modifier, contentAlignment) {

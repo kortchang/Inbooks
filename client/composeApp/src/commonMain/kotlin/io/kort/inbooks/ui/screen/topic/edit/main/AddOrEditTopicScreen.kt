@@ -50,6 +50,7 @@ import io.kort.inbooks.ui.resource.EditPencil
 import io.kort.inbooks.ui.resource.Icons
 import io.kort.inbooks.ui.resource.Plus
 import io.kort.inbooks.ui.resource.Xmark
+import io.kort.inbooks.ui.token.system.System
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -97,7 +98,7 @@ fun PageScope.AddOrEditTopicScreen(
                         Modifier
                             .padding(vertical = 32.dp)
                             .height(1.dp).fillMaxWidth()
-                            .background(io.kort.inbooks.ui.token.system.System.colors.outline)
+                            .background(System.colors.onSurface.copy(alpha = System.colors.outlineAlpha))
                     )
                 }
 
@@ -120,7 +121,7 @@ private fun AddOrEditTopicTopAppBar(
 ) {
     val isEdit = uiState is AddOrEditTopicUiState.Edit
 
-    CompositionLocalProvider(LocalContentColor provides io.kort.inbooks.ui.token.system.System.colors.onSecondary) {
+    CompositionLocalProvider(LocalContentColor provides System.colors.onSecondary) {
         TopAppBar(
             start = {
                 Button(
@@ -150,7 +151,7 @@ private fun AddOrEditTopicTopAppBar(
                         )
                     },
                     onClick = confirm,
-                    colors = ButtonDefaults.colorsOfSecondary(),
+                    colors = ButtonDefaults.secondaryButtonColors(),
                     enabled = confirmEnable,
                 )
             }
@@ -205,7 +206,7 @@ private fun LazyListScope.books(
                 )
             },
             onClick = onClickAddOrEdit,
-            colors = ButtonDefaults.colorsOfSecondary(),
+            colors = ButtonDefaults.secondaryButtonColors(),
         )
     }
 

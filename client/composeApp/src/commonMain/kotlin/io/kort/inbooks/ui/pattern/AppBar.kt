@@ -37,7 +37,7 @@ fun AppBar(
                 )
                 Text(
                     text = stringResource(Res.string.app_name),
-                    fontWeight = FontWeight.W600,
+                    fontWeight = FontWeight.Medium,
                     fontSize = 16.sp,
                     color = System.colors.onSurface,
                 )

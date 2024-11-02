@@ -2,7 +2,7 @@ package io.kort.inbooks.ui.screen.book.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.kort.inbooks.data.repository.CollectedBookRepository
+import io.kort.inbooks.domain.repository.CollectedBookRepository
 import io.kort.inbooks.domain.model.settings.BookListDisplayStyle
 import io.kort.inbooks.domain.repository.SettingsRepository
 import io.kort.inbooks.ui.foundation.started

@@ -2,7 +2,7 @@ package io.kort.inbooks.ui.screen.dashboard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.kort.inbooks.data.repository.CollectedBookRepository
+import io.kort.inbooks.domain.repository.CollectedBookRepository
 import io.kort.inbooks.domain.repository.TopicRepository
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn

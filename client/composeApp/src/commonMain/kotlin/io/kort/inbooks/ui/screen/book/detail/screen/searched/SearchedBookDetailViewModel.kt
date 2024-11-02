@@ -2,7 +2,7 @@ package io.kort.inbooks.ui.screen.book.detail.screen.searched
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import io.kort.inbooks.data.repository.CollectedBookRepository
+import io.kort.inbooks.domain.repository.CollectedBookRepository
 import io.kort.inbooks.domain.repository.SearchBookRepository
 import io.kort.inbooks.domain.model.book.Book
 import kotlinx.coroutines.flow.MutableSharedFlow

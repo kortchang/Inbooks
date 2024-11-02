@@ -11,6 +11,7 @@ import io.kort.inbooks.ui.screen.search.SearchViewModel
 import io.kort.inbooks.ui.screen.book.detail.screen.searched.SearchedBookDetailViewModel
 import io.kort.inbooks.ui.screen.book.list.BookListViewModel
 import io.kort.inbooks.ui.screen.onboarding.OnboardingViewModel
+import io.kort.inbooks.ui.screen.search.addbylink.AddByLinkViewModel
 import io.kort.inbooks.ui.screen.topic.detail.TopicDetailViewModel
 import io.kort.inbooks.ui.screen.topic.edit.book.SelectBookViewModel
 import io.kort.inbooks.ui.screen.topic.edit.main.AddOrEditTopicViewModel
@@ -20,6 +21,7 @@ fun uiModule() = module {
     factoryOf(::AppViewModel)
     factoryOf(::OnboardingViewModel)
     factoryOf(::SearchViewModel)
+    factoryOf(::AddByLinkViewModel)
     factory { (externalIds: List<Book.ExternalId>) -> SearchedBookDetailViewModel(externalIds, get(), get()) }
     factoryOf(::DashboardViewModel)
     factory { (bookId: String) -> CollectedBookDetailViewModel(bookId, get()) }

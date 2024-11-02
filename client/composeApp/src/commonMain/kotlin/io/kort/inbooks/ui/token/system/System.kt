@@ -1,9 +1,8 @@
 package io.kort.inbooks.ui.token.system
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
-import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -47,7 +46,7 @@ data class System(
         val onSecondary: Color,
         val onSecondaryVariant: Color,
         val collected: Color,
-        val outline: Color,
+        val outlineAlpha: Float,
         val warning: Color,
     ) {
         companion object {
@@ -64,7 +63,7 @@ data class System(
                 onSecondary = Reference.Colors.Grey.L800,
                 onSecondaryVariant = Reference.Colors.Grey.L400,
                 collected = Reference.Colors.Green.L400,
-                outline = Reference.Colors.Grey.L100,
+                outlineAlpha = 0.15f,
                 warning = Reference.Colors.Red.L400,
             )
 
@@ -81,18 +80,18 @@ data class System(
                 onSecondary = Reference.Colors.Grey.L800,
                 onSecondaryVariant = Reference.Colors.Grey.L400,
                 collected = Reference.Colors.Green.L300,
-                outline = Reference.Colors.Grey.L600,
+                outlineAlpha = 0.15f,
                 warning = Reference.Colors.Red.L400,
             )
         }
     }
 
     class Spacing(
-        val pagePadding: Dp
+        val pagePadding: PaddingValues
     ) {
         companion object {
             fun mobile() = Spacing(
-                pagePadding = 32.dp
+                pagePadding = PaddingValues(vertical = 16.dp, horizontal = 32.dp)
             )
         }
     }

@@ -16,7 +16,7 @@ interface EmailSender {
 }
 
 class ResendEmailSender(environment: ApplicationEnvironment) : EmailSender {
-    private val resend = Resend(environment.config.property("resend.token").getString())
+    private val resend = Resend(environment.config.property("resend.apiKey").getString())
     override fun sendNoReply(
         to: String,
         subject: String,

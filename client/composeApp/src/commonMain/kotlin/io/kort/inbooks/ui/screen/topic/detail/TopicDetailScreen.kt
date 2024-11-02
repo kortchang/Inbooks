@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import co.touchlab.kermit.Logger
 import io.kort.inbooks.ui.resource.Res
 import io.kort.inbooks.ui.resource.add_or_edit_topic_confirm_delete_title
 import io.kort.inbooks.ui.resource.cancel
@@ -66,6 +67,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PageScope.TopicDetailScreen(
     viewModel: TopicDetailViewModel,
@@ -84,16 +86,21 @@ fun PageScope.TopicDetailScreen(
     val excludeBottomWindowInsets = windowInsets.exclude(bottomWindowInsets)
 
     (uiState as? TopicDetailUiState.Initialized)?.let { initializedUiState ->
-        Column(modifier.windowInsetsPadding(excludeBottomWindowInsets)) {
-            TopAppBar(
-                onBack = back,
-                onShare = { },
-                onEdit = navigateToEditTopic,
-                onDelete = { initializedUiState.intentTo(TopicDetailUiIntent.Delete) },
-            )
-            Spacer(Modifier.height(32.dp))
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(32.dp),
+            contentPadding = windowInsets.exclude(windowInsets.only(WindowInsetsSides.Top)).asPaddingValues(),
+        ) {
+            stickyHeader {
+                TopAppBar(
+                    modifier = Modifier.windowInsetsPadding(windowInsets.only(WindowInsetsSides.Top)),
+                    onBack = back,
+                    onShare = { },
+                    onEdit = navigateToEditTopic,
+                    onDelete = { initializedUiState.intentTo(TopicDetailUiIntent.Delete) },
+                )
+            }
+
             Content(
-                windowInsets = bottomWindowInsets,
                 topic = initializedUiState.topic,
                 bookIdToCollectedBook = initializedUiState.bookIdToCollectedBook,
                 onCollectedBookClick = navigateToCollectedBookDetail,
@@ -125,8 +132,10 @@ private fun TopAppBar(
     onShare: () -> Unit,
     onEdit: () -> Unit,
     onDelete: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     io.kort.inbooks.ui.component.TopAppBar(
+        modifier = modifier,
         start = {
             Button(
                 start = {
@@ -174,7 +183,7 @@ private fun TopAppBar(
                 IconButton(
                     icon = Icons.MoreVert,
                     onClick = { coroutineScope.launch { tooltipState.show() } },
-                    colors = ButtonDefaults.colorsOfSecondary(),
+                    colors = ButtonDefaults.secondaryButtonColors(),
                 )
 
                 if (deleteDialogVisible) {
@@ -193,13 +202,13 @@ private fun TopAppBar(
                                 start = {
                                     Text(
                                         text = stringResource(Res.string.delete),
-                                        fontWeight = FontWeight.W600
+                                        fontWeight = FontWeight.Medium
                                     )
                                 },
                                 onClick = {
                                     onDelete()
                                 },
-                                colors = ButtonDefaults.colorsOfWarningText(),
+                                colors = ButtonDefaults.warningTextButtonColors(),
                             )
                         },
                         dismissButton = {
@@ -207,7 +216,7 @@ private fun TopAppBar(
                                 start = {
                                     Text(
                                         text = stringResource(Res.string.cancel),
-                                        fontWeight = FontWeight.W600,
+                                        fontWeight = FontWeight.Medium,
                                         color = System.colors.onBackgroundVariant
                                     )
                                 },
@@ -221,31 +230,25 @@ private fun TopAppBar(
     )
 }
 
-@Composable
-private fun Content(
-    windowInsets: WindowInsets,
+private fun LazyListScope.Content(
     topic: Topic,
     bookIdToCollectedBook: Map<BookId, CollectedBook>,
     onCollectedBookClick: (book: CollectedBook) -> Unit,
     onSearchedBookClick: (book: Book) -> Unit,
-    modifier: Modifier = Modifier,
 ) {
-    LazyColumn(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(32.dp),
-        contentPadding = windowInsets.asPaddingValues() + PaddingValues(top = 32.dp),
-    ) {
-        item {
+    item {
+        Column {
+            Spacer(Modifier.height(32.dp))
             TopicInformation(topic = topic)
         }
-
-        books(
-            books = topic.books,
-            bookIdToCollectedBook = bookIdToCollectedBook,
-            onCollectedBookClick = onCollectedBookClick,
-            onSearchedBookClick = onSearchedBookClick,
-        )
     }
+
+    books(
+        books = topic.books,
+        bookIdToCollectedBook = bookIdToCollectedBook,
+        onCollectedBookClick = onCollectedBookClick,
+        onSearchedBookClick = onSearchedBookClick,
+    )
 }
 
 @Composable
@@ -261,7 +264,7 @@ private fun TopicInformation(
             text = topic.title,
             color = System.colors.onSurface,
             fontSize = 20.sp,
-            fontWeight = FontWeight.W600,
+            fontWeight = FontWeight.Medium,
         )
         if (topic.description.isNotBlank()) {
             Text(

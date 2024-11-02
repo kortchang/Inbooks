@@ -1,9 +1,9 @@
 plugins {
     application
     kotlin("jvm")
+    alias(libs.plugins.docker.compose)
     alias(libs.plugins.ktor)
     alias(libs.plugins.kotlinSerialization)
-    alias(libs.plugins.kotlinxRpc)
     alias(libs.plugins.flyway)
 }
 
@@ -17,18 +17,28 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
+dockerCompose {
+    isRequiredBy(project.tasks.test)
+    forceRecreate = true
+    removeVolumes = true
+    useComposeFiles = listOf("docker/docker-compose-postgres-test.yml")
+}
+
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
+}
+
+tasks.register<JavaExec>("generateMigrationScript") {
+    group = "application"
+    description = "Generate migration script in the path exposed-migration/migrations"
+    classpath = sourceSets.main.get().runtimeClasspath
+    mainClass = "GenerateMigrationScriptKt"
 }
 
 dependencies {
     implementation(project(":common"))
     implementation(libs.arrow.core)
     implementation(libs.bcrypt)
-    implementation(libs.kotlinx.rpc.core)
-    implementation(libs.kotlinx.rpc.krpc.server)
-    implementation(libs.kotlinx.rpc.krpc.ktor.server)
-    implementation(libs.kotlinx.rpc.krpc.serialization.json)
     implementation(project.dependencies.platform(libs.koin.bom))
     implementation(libs.bundles.ktor.server)
     implementation(project.dependencies.platform(libs.exposed.bom))

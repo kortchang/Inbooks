@@ -32,14 +32,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.PopupPositionProvider
 import io.kort.inbooks.ui.token.component.Component
-import io.kort.inbooks.ui.token.system.System
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MoreMenuBox(
     state: BasicTooltipState,
-    backgroundColor: Color = Component.button.secondaryBackground,
-    onBackgroundColor: Color = Component.button.secondaryOnBackground,
+    backgroundColor: Color = Component.button.secondaryButtonBackground,
+    onBackgroundColor: Color = Component.button.secondaryButtonOnBackground,
     menuContent: @Composable() (ColumnScope.() -> Unit),
     content: @Composable () -> Unit,
 ) {
@@ -72,7 +71,7 @@ fun MoreMenuItem(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(imageVector = icon, contentDescription = null, tint = color)
-        Text(text = text, color = color, fontSize = 16.sp, fontWeight = FontWeight.W600)
+        Text(text = text, color = color, fontSize = 16.sp, fontWeight = FontWeight.Medium)
     }
 }
 

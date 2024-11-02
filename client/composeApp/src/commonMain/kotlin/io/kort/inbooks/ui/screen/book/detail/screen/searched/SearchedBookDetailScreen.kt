@@ -1,7 +1,8 @@
 package io.kort.inbooks.ui.screen.book.detail.screen.searched
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.asPaddingValues
@@ -11,7 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -30,7 +31,6 @@ import io.kort.inbooks.ui.component.ButtonDefaults
 import io.kort.inbooks.ui.component.PageScope
 import io.kort.inbooks.ui.component.TopAppBar
 import io.kort.inbooks.ui.foundation.SharedScene
-import io.kort.inbooks.ui.foundation.plus
 import io.kort.inbooks.ui.pattern.book.BookCover
 import io.kort.inbooks.ui.pattern.book.BookCoverDefaults
 import io.kort.inbooks.ui.pattern.book.BookCoverLayoutStyle
@@ -42,12 +42,12 @@ import io.kort.inbooks.ui.resource.PlusCircle
 import io.kort.inbooks.ui.resource.Res
 import io.kort.inbooks.ui.resource.searched_book_detail_collect
 import io.kort.inbooks.ui.screen.book.detail.pattern.BookInformation
-import io.kort.inbooks.ui.screen.book.detail.pattern.BookInformationColors
 import io.kort.inbooks.ui.screen.book.detail.pattern.BookInformationDefaults
 import kotlinx.coroutines.flow.collectLatest
 import org.jetbrains.compose.resources.stringResource
 import org.koin.core.parameter.parametersOf
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PageScope.SearchedBookDetailScreen(
     externalIds: List<Book.ExternalId>,
@@ -72,21 +72,25 @@ fun PageScope.SearchedBookDetailScreen(
 
     val uiState by viewModel.uiState.collectAsState()
     val bookOrNull = uiState.book
-    val contentLazyListState = rememberLazyListState()
     val bottomWindowInsets = windowInsets.only(WindowInsetsSides.Bottom)
     val excludeBottomWindowInsets = windowInsets.exclude(bottomWindowInsets)
-    Column(modifier.fillMaxSize().windowInsetsPadding(excludeBottomWindowInsets)) {
-        SearchedBookDetailTopAppBar(
-            onBack = back,
-            onCollect = { uiState.intentTo(SearchedBookDetailUiIntent.Collect) }
-        )
-        bookOrNull?.let { book ->
-            Content(
-                modifier = Modifier.weight(1f),
-                book = book,
-                lazyListState = contentLazyListState,
-                contentPadding = bottomWindowInsets.asPaddingValues(),
+    LazyColumn(
+        modifier = modifier.fillMaxSize().windowInsetsPadding(excludeBottomWindowInsets),
+        contentPadding = bottomWindowInsets.asPaddingValues(),
+        verticalArrangement = Arrangement.spacedBy(48.dp),
+    ) {
+        stickyHeader {
+            SearchedBookDetailTopAppBar(
+                modifier = Modifier.windowInsetsPadding(windowInsets.only(WindowInsetsSides.Top)),
+                onBack = back,
+                onCollect = { uiState.intentTo(SearchedBookDetailUiIntent.Collect) }
             )
+        }
+
+        bookOrNull?.let { book ->
+            item {
+                Content(book = book)
+            }
         }
     }
 }
@@ -95,8 +99,10 @@ fun PageScope.SearchedBookDetailScreen(
 private fun SearchedBookDetailTopAppBar(
     onBack: () -> Unit,
     onCollect: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     TopAppBar(
+        modifier = modifier,
         start = {
             Button(
                 start = {
@@ -123,7 +129,7 @@ private fun SearchedBookDetailTopAppBar(
                     Text(text = stringResource(Res.string.searched_book_detail_collect))
                 },
                 onClick = onCollect,
-                colors = ButtonDefaults.colorsOfSecondary(),
+                colors = ButtonDefaults.secondaryButtonColors(),
             )
         }
     )
@@ -131,25 +137,13 @@ private fun SearchedBookDetailTopAppBar(
 
 @Composable
 private fun Content(
-    modifier: Modifier = Modifier,
     book: SearchedBook,
-    lazyListState: LazyListState,
-    contentPadding: PaddingValues,
+    modifier: Modifier = Modifier,
 ) {
-    LazyColumn(
-        modifier = modifier,
-        state = lazyListState,
-        contentPadding = contentPadding + PaddingValues(top = 48.dp),
-    ) {
-        item(key = "info") {
-            Book(book = book)
-        }
-
-        item {
-            Spacer(Modifier.height(32.dp))
-        }
-
-        item { BookInformation(book.book, colors = BookInformationDefaults.colorsOnSurface()) }
+    Column(modifier) {
+        Book(book = book)
+        Spacer(Modifier.height(32.dp))
+        BookInformation(book.book, colors = BookInformationDefaults.colorsOnSurface())
     }
 }
 

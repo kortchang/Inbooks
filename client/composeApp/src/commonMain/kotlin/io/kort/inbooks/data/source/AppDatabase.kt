@@ -7,6 +7,7 @@ import androidx.room.RoomDatabaseConstructor
 import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
+import co.touchlab.kermit.Logger
 import com.benasher44.uuid.Uuid
 import com.benasher44.uuid.uuidFrom
 import io.kort.inbooks.data.source.book.BookLocalModel
@@ -38,7 +39,7 @@ import kotlinx.serialization.json.Json
         BasicTopicLocalModel::class,
         BasicTopicLocalModel.TopicBookCrossReferenceLocalModel::class,
     ],
-    version = 2,
+    version = AppDatabaseMigration.version,
 )
 @TypeConverters(AppTypeConverters::class)
 @ConstructedBy(AppDatabaseConstructor::class)
@@ -89,6 +90,14 @@ object AppTypeConverters {
 
     @TypeConverter
     fun toLocalDate(value: String): LocalDate = LocalDate.parse(value)
+
+    @TypeConverter
+    fun fromBookSource(value: BookLocalModel.BasicBookLocalModel.Source): String = value.serialName
+
+    @TypeConverter
+    fun toBookSource(value: String): BookLocalModel.BasicBookLocalModel.Source {
+        return BookLocalModel.BasicBookLocalModel.Source.entries.first { it.serialName == value }
+    }
 
     /**
      * 只是用來查詢資料而已，所以不寫 to。

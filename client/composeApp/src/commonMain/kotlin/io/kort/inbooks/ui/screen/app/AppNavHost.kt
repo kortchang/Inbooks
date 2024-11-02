@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.material.navigation.bottomSheet
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -36,6 +37,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import co.touchlab.kermit.Logger
 import io.kort.inbooks.app.di.getViewModel
 import io.kort.inbooks.ui.component.Page
 import io.kort.inbooks.ui.foundation.LocalNavigationSharedTransitionScope
@@ -145,7 +147,7 @@ private fun AppNavHost(
                         navController.navigate(Screen.SearchedBookDetail(it.book.externalIds))
                     },
                     navigateToCollectedDetail = {
-                        navController.navigate(Screen.CollectedBookDetail(it.book.id))
+                        navController.navigate(Screen.CollectedBookDetail(it))
                     },
                 )
             }
@@ -238,7 +240,7 @@ private fun BoxScope.BottomAppBar(
                 .zIndex(Float.MAX_VALUE)
                 .align(Alignment.BottomCenter)
                 .safeDrawingPadding()
-                .padding(bottom = System.spacing.pagePadding)
+                .padding(bottom = System.spacing.pagePadding.calculateBottomPadding())
                 .onPlaced { layoutCoordinates ->
                     val windowHeight = layoutCoordinates.findRootCoordinates().size.height
                     val topInWindow = layoutCoordinates.boundsInRoot().top
