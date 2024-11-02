@@ -17,7 +17,15 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.modifier.modifierLocalMapOf
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,6 +38,9 @@ import com.mohamedrejeb.richeditor.model.rememberRichTextState
 import com.mohamedrejeb.richeditor.ui.material3.RichText
 import io.kort.inbooks.data.source.book.BookLocalModel
 import io.kort.inbooks.domain.model.book.Book
+import io.kort.inbooks.ui.resource.book_detail_source_title
+import io.kort.inbooks.ui.resource.books_tw
+import io.kort.inbooks.ui.resource.google_books
 import io.kort.inbooks.ui.token.system.System
 import org.jetbrains.compose.resources.stringResource
 
@@ -40,7 +51,16 @@ fun BookInformation(
     colors: BookInformationColors,
     modifier: Modifier = Modifier,
 ) {
-    Column(modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(32.dp),
+    ) {
+        DataSource(
+            source = book.source,
+            externalIds = book.externalIds,
+            colors = colors,
+        )
+
         var descriptionLoaded by remember(book.description) { mutableStateOf(book.description == null) }
         book.description?.let {
             Description(
@@ -130,17 +150,52 @@ private fun Description(
 
 @Composable
 private fun DataSource(
-    source: BookLocalModel.BasicBookLocalModel.Source,
+    source: Book.Source,
     externalIds: List<Book.ExternalId>,
     colors: BookInformationColors,
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Subtitle(
-            text = stringResource(Res.string.book_detail_description_title),
+            text = stringResource(Res.string.book_detail_source_title),
             color = colors.onColorVariant,
         )
 
-//        Text()
+        val text = when (source) {
+            Book.Source.GoogleBookApi -> {
+                AnnotatedString(stringResource(Res.string.google_books))
+            }
+
+            Book.Source.BooksUrl -> {
+                val booksTwText = stringResource(Res.string.books_tw)
+                val url = externalIds.firstOrNull { it.type == Book.ExternalId.Type.BooksUrl }?.value
+                if (url != null) {
+                    remember(booksTwText) {
+                        buildAnnotatedString {
+                            append(booksTwText)
+                            addLink(
+                                url = LinkAnnotation.Url(
+                                    url = url,
+                                    styles = TextLinkStyles(
+                                        style = SpanStyle(textDecoration = TextDecoration.Underline)
+                                    )
+                                ),
+                                start = 0,
+                                end = booksTwText.length
+                            )
+                        }
+                    }
+                } else {
+                    AnnotatedString(booksTwText)
+                }
+            }
+        }
+
+        Text(
+            text = text,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Medium,
+            color = colors.onColor,
+        )
     }
 }
 

@@ -11,6 +11,8 @@
     <string name="save">儲存</string>
     <string name="confirm">確認</string>
     <string name="new_tag">NEW</string>
+    <string name="books_tw">博客來</string>
+    <string name="google_books">Google Books</string>
 
     <string name="powered_by_google">powered by Google</string>
     <string name="privacy_policy_url">https://privacy-policy.inbooks.tw</string>
@@ -33,6 +35,7 @@
 
     <string name="searched_book_detail_collect">收藏</string>
 
+    <string name="book_detail_source_title">資料來源</string>
     <string name="book_detail_description_title">簡介</string>
     <string name="book_detail_published_date_title">出版日期</string>
     <string name="book_detail_publisher_title">出版社</string>
