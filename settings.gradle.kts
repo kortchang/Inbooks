@@ -34,7 +34,6 @@ dependencyResolutionManagement {
     }
 }
 
-include("client")
 include("composeApp")
 project(":composeApp").projectDir = file("client/composeApp")
 include(":server")

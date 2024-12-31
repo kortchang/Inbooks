@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
-import androidx.compose.material.navigation.bottomSheet
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -37,12 +36,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import co.touchlab.kermit.Logger
 import io.kort.inbooks.app.di.getViewModel
 import io.kort.inbooks.ui.component.Page
 import io.kort.inbooks.ui.foundation.LocalNavigationSharedTransitionScope
 import io.kort.inbooks.ui.pattern.BottomAppBar
 import io.kort.inbooks.ui.pattern.LocalBottomAppBarWindowInsets
+import io.kort.inbooks.ui.screen.auth.login.login
+import io.kort.inbooks.ui.screen.auth.signUp.signUp
 import io.kort.inbooks.ui.screen.book.detail.screen.collected.CollectedBookDetailScreen
 import io.kort.inbooks.ui.screen.book.detail.screen.searched.SearchedBookDetailScreen
 import io.kort.inbooks.ui.screen.book.list.BookListScreen
@@ -51,7 +51,7 @@ import io.kort.inbooks.ui.screen.onboarding.OnboardingScreen
 import io.kort.inbooks.ui.screen.search.SearchScreen
 import io.kort.inbooks.ui.screen.topic.detail.TopicDetailScreen
 import io.kort.inbooks.ui.screen.topic.detail.TopicDetailViewModel
-import io.kort.inbooks.ui.screen.topic.edit.addOrEditTopicNavigation
+import io.kort.inbooks.ui.screen.topic.edit.addOrEditTopic
 import io.kort.inbooks.ui.screen.topic.list.TopicListScreen
 import io.kort.inbooks.ui.token.system.System
 import org.koin.core.parameter.parametersOf
@@ -116,13 +116,15 @@ private fun AppNavHost(
         enterTransition = { fadeIn(tween(durationMillis = 150)) },
         exitTransition = { fadeOut(tween(durationMillis = 150)) },
     ) {
+        signUp(navController)
+        login(navController)
+        addOrEditTopic(navController)
+
         composable<Screen.Onboarding> {
             Page {
                 OnboardingScreen(
-                    navigateToDashboard = {
-                        navController.popBackStack()
-                        navController.navigate(Screen.Dashboard) { launchSingleTop = true }
-                    }
+                    navigateToSignUp = { navController.navigate(Screen.SignUp) },
+                    navigateToLogin = { navController.navigate(Screen.Login) }
                 )
             }
         }
@@ -136,6 +138,8 @@ private fun AppNavHost(
                     navigateToTopic = { navController.navigate(Screen.TopicDetail(it.id)) },
                     navigateToBookList = { navController.navigate(Screen.BookList) },
                     navigateToTopicList = { navController.navigate(Screen.TopicList) },
+                    navigateToSignUp = { navController.navigate(Screen.SignUp) },
+                    navigateToSettings = { navController.navigate(Screen.Settings) },
                 )
             }
         }
@@ -201,8 +205,6 @@ private fun AppNavHost(
             }
         }
 
-        addOrEditTopicNavigation(navController)
-
         composable<Screen.TopicDetail> { backStack ->
             val screen = backStack.toRoute<Screen.TopicDetail>()
             val viewModel = getViewModel<TopicDetailViewModel> { parametersOf(screen.topicId) }
@@ -222,6 +224,8 @@ private fun AppNavHost(
                 )
             }
         }
+
+        composable<Screen.Settings> {  }
     }
 }
 

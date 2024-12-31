@@ -66,4 +66,26 @@ sealed interface Screen {
                 TopicList to Icons.BookStack,
             )
     }
+
+
+    @Serializable
+    data object SignUp : Screen {
+        @Serializable
+        data object Email : Screen
+    }
+
+    @Serializable
+    data object Login : Screen {
+        @Serializable
+        data object Email : Screen
+
+        @Serializable
+        data class VerifyEmail(val email: String) : Screen
+
+        @Serializable
+        data object Success : Screen
+    }
+
+    @Serializable
+    data object Settings : Screen
 }

@@ -1,10 +1,7 @@
 package io.kort.inbooks.ui.screen.topic.edit
 
-import androidx.compose.animation.SizeTransform
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.remember
@@ -13,7 +10,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
-import co.touchlab.kermit.Logger
 import io.kort.inbooks.ui.screen.app.Screen
 import io.kort.inbooks.app.di.getViewModel
 import io.kort.inbooks.ui.component.Page
@@ -25,7 +21,7 @@ import io.kort.inbooks.ui.screen.topic.edit.main.AddOrEditTopicUiState
 import io.kort.inbooks.ui.screen.topic.edit.main.AddOrEditTopicViewModel
 import org.koin.core.parameter.parametersOf
 
-fun NavGraphBuilder.addOrEditTopicNavigation(navController: NavHostController) {
+fun NavGraphBuilder.addOrEditTopic(navController: NavHostController) {
     navigation<Screen.AddOrEditTopic>(startDestination = Screen.AddOrEditTopic.Main) {
         composable<Screen.AddOrEditTopic.Main>(
             enterTransition = { fadeIn() + slideInVertically { 20 } },

@@ -1,15 +1,14 @@
 package io.kort.inbooks.ui.screen.onboarding
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
@@ -29,26 +28,25 @@ import io.kort.inbooks.ui.component.PageScope
 import io.kort.inbooks.ui.pattern.AppBar
 import io.kort.inbooks.ui.pattern.Empty
 import io.kort.inbooks.ui.pattern.LocalBottomAppBarWindowInsets
-import io.kort.inbooks.ui.resource.Icons
-import io.kort.inbooks.ui.resource.NavArrowRight
 import io.kort.inbooks.ui.resource.Res
 import io.kort.inbooks.ui.resource.illustration_onboarding
-import io.kort.inbooks.ui.resource.onboarding_button_text
+import io.kort.inbooks.ui.resource.login
 import io.kort.inbooks.ui.resource.onboarding_description
 import io.kort.inbooks.ui.resource.onboarding_privacy_policy
 import io.kort.inbooks.ui.resource.onboarding_privacy_policy_full_text
 import io.kort.inbooks.ui.resource.onboarding_terms_and_conditions
 import io.kort.inbooks.ui.resource.onboarding_title
 import io.kort.inbooks.ui.resource.privacy_policy_url
+import io.kort.inbooks.ui.resource.sign_up
 import io.kort.inbooks.ui.resource.terms_and_conditions_url
 import io.kort.inbooks.ui.token.system.System
-import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun PageScope.OnboardingScreen(
-    navigateToDashboard: () -> Unit,
+    navigateToSignUp: () -> Unit,
+    navigateToLogin: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val viewModel = getViewModel<OnboardingViewModel>()
@@ -63,40 +61,36 @@ fun PageScope.OnboardingScreen(
             title = stringResource(Res.string.onboarding_title),
             description = stringResource(Res.string.onboarding_description),
         )
-        val coroutineScope = rememberCoroutineScope()
         Footer(
-            onStartClick = {
-                coroutineScope.launch {
-                    viewModel.markIsOnboarded()
-                    navigateToDashboard()
-                }
-            }
+            onSignUpButtonClick = navigateToSignUp,
+            onLoginButtonClick = navigateToLogin,
         )
     }
 }
 
 @Composable
 private fun Footer(
-    onStartClick: () -> Unit,
+    onSignUpButtonClick: () -> Unit,
+    onLoginButtonClick: () -> Unit,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Button(
             modifier = Modifier.fillMaxWidth(),
-            text = {
-                Text(text = stringResource(Res.string.onboarding_button_text))
-            },
-            end = {
-                Icon(
-                    imageVector = Icons.NavArrowRight,
-                    contentDescription = null,
-                )
-            },
-            onClick = onStartClick,
+            text = { Text(text = stringResource(Res.string.sign_up)) },
+            onClick = onSignUpButtonClick,
             colors = ButtonDefaults.secondaryButtonColors(),
         )
+        Spacer(Modifier.height(16.dp))
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            text = { Text(text = stringResource(Res.string.login)) },
+            onClick = onLoginButtonClick,
+            colors = ButtonDefaults.primaryButtonColors(),
+        )
+
+        Spacer(Modifier.height(8.dp))
         PrivacyPolicyText()
     }
 }

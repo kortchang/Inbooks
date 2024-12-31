@@ -8,4 +8,6 @@ interface SettingsRepository {
     suspend fun markIsOnboarded()
     fun getBookListDisplayStyleFlow(): Flow<BookListDisplayStyle?>
     suspend fun updateBookListDisplayStyle(value: BookListDisplayStyle)
+    suspend fun isOnboardedSignUp(): Boolean
+    suspend fun markIsOnboardedSignUp()
 }

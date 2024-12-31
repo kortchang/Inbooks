@@ -5,6 +5,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalWithComputedDefaultOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -21,6 +22,7 @@ data class Component(
         val secondaryButtonOnBackground: Color,
         val warningTextButtonOnBackground: Color,
         val outlineButtonOnBackground: Color,
+        val outlineButtonOnSurface: Color,
         val outlineButtonOutlineAlpha: Float,
         val outlineButtonStrokeWidth: Dp,
         val disabledAlpha: Float,
@@ -39,10 +41,12 @@ data class Component(
                     secondaryButtonOnBackground = system.colors.onSecondary,
                     warningTextButtonOnBackground = system.colors.warning,
                     outlineButtonOnBackground = system.colors.onBackground,
+                    outlineButtonOnSurface = system.colors.onSurface,
                     outlineButtonOutlineAlpha = system.colors.outlineAlpha,
                     outlineButtonStrokeWidth = 1.dp,
                     disabledAlpha = 0.5f,
                     typography = TextStyle(
+                        fontWeight = FontWeight.W500,
                         fontSize = 16.sp,
                     )
                 )

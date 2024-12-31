@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -32,10 +33,9 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImagePainter
+import coil3.compose.rememberAsyncImagePainter
 import io.kort.inbooks.domain.model.book.Book
-import io.kamel.core.Resource
-import io.kamel.image.asyncPainterResource
-import io.kort.inbooks.ui.foundation.Shadow
 import io.kort.inbooks.ui.foundation.shadow
 import io.kort.inbooks.ui.token.system.System
 
@@ -83,13 +83,13 @@ private fun SmallBookRow(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(Modifier.clip(shape = RoundedCornerShape(4.dp))) {
-            val coverResource = asyncPainterResource(book.coverUrl ?: "")
-            when (coverResource) {
-                is Resource.Failure -> Unit
-                is Resource.Loading -> Spacer(Modifier.width(24.dp))
-                is Resource.Success -> Image(
+            val coverPainterState by rememberAsyncImagePainter(book.coverUrl ?: "").state.collectAsState()
+            when (coverPainterState) {
+                is AsyncImagePainter.State.Error, AsyncImagePainter.State.Empty -> Unit
+                is AsyncImagePainter.State.Loading -> Spacer(Modifier.width(24.dp))
+                is AsyncImagePainter.State.Success -> Image(
                     modifier = Modifier.width(24.dp),
-                    painter = coverResource.value,
+                    painter = coverPainterState.painter!!,
                     contentDescription = book.title,
                     contentScale = ContentScale.FillWidth
                 )

@@ -394,7 +394,7 @@ private fun MainButton(uiState: AddByLinkUiState, link: String) {
                 is AddByLinkUiState.AnalyzedSuccess -> {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         Button(
-                            colors = ButtonDefaults.outlineButtonColors(),
+                            colors = ButtonDefaults.outlineButtonOnBackgroundColors(),
                             onClick = { uiState.intentTo(AddByLinkUiIntent.BackToEnter) },
                             start = { Icon(Icons.NavArrowLeft, contentDescription = null) },
                         )

@@ -22,11 +22,12 @@ fun Empty(
     illustration: Painter,
     title: String,
     description: String,
+    verticalBias: Float = EmptyDefaults.VerticalBiasInPage,
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier) {
         Column(
-            modifier = Modifier.align(BiasAlignment(horizontalBias = 0f, verticalBias = -0.5f)),
+            modifier = Modifier.align(BiasAlignment(horizontalBias = 0f, verticalBias = verticalBias)),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Image(
@@ -51,4 +52,8 @@ fun Empty(
             )
         }
     }
+}
+
+object EmptyDefaults {
+    val VerticalBiasInPage = -0.5f
 }

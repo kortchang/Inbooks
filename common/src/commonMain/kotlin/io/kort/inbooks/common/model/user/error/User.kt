@@ -15,8 +15,12 @@ sealed interface RemoteUserError : BusinessError {
         data object InvalidEmail : CreateError
 
         @Serializable
-        @SerialName("User.Create.InvalidPassword")
-        data object InvalidPassword : CreateError
+        @SerialName("User.Create.PasswordHasInvalidCharacter")
+        data object PasswordHasInvalidCharacter : CreateError
+
+        @Serializable
+        @SerialName("User.Create.PasswordTooShort")
+        data object PasswordTooShort : CreateError
 
         @Serializable
         @SerialName("User.Create.InvalidDisplayName")
@@ -59,7 +63,7 @@ sealed interface RemoteUserError : BusinessError {
 
     sealed interface LoginError : RemoteUserError {
         @Serializable
-        @SerialName("User.Login.UserNotFound")
+        @SerialName("User.Login.NotExistEmailOrWrongPassword")
         data object NotExistEmailOrWrongPassword : LoginError
     }
 

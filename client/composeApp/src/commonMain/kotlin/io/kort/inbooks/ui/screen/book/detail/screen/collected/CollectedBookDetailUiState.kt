@@ -9,10 +9,10 @@ data class CollectedBookDetailUiState(
 
 sealed interface CollectedBookDetailUiIntent {
     data class AddReadingEvent(val page: Int) : CollectedBookDetailUiIntent
-    data class UpdateReadingReason(val reason: String): CollectedBookDetailUiIntent
-    data object UnCollect: CollectedBookDetailUiIntent
+    data class UpdateReadingReason(val reason: String) : CollectedBookDetailUiIntent
+    data object UnCollect : CollectedBookDetailUiIntent
 }
 
 sealed interface CollectedBookDetailUiEvent {
-    data object UnCollected: CollectedBookDetailUiEvent
+    data object UnCollected : CollectedBookDetailUiEvent
 }

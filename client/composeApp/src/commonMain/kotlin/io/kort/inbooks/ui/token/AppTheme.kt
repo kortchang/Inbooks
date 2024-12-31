@@ -5,8 +5,6 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import io.kamel.image.config.LocalKamelConfig
-import io.kort.inbooks.ui.foundation.getKamelConfig
 import io.kort.inbooks.ui.token.component.Component
 import io.kort.inbooks.ui.token.component.LocalComponent
 import io.kort.inbooks.ui.token.system.LocalSystem
@@ -32,7 +30,6 @@ fun AppTheme(isDarkTheme: Boolean = false, content: @Composable () -> Unit) {
     ) {
         CompositionLocalProvider(
             LocalIndication provides ScaleIndication,
-            LocalKamelConfig provides getKamelConfig(),
             LocalSystem provides system,
             LocalComponent provides component,
             LocalContentColor provides system.colors.onSurface,

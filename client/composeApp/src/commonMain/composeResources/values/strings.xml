@@ -13,6 +13,15 @@
     <string name="new_tag">NEW</string>
     <string name="books_tw">博客來</string>
     <string name="google_books">Google Books</string>
+    <string name="login">登入</string>
+    <string name="sign_up">註冊</string>
+    <string name="sign_up_a_new_account">註冊新帳號</string>
+    <string name="logout">登出</string>
+    <string name="email">電子信箱</string>
+    <string name="password">密碼</string>
+
+    <string name="auth_login_title">登入帳號</string>
+    <string name="auth_login_error_wrong_email_or_password">錯誤的電子信箱或密碼</string>
 
     <string name="powered_by_google">powered by Google</string>
     <string name="privacy_policy_url">https://privacy-policy.inbooks.tw</string>
@@ -81,4 +90,7 @@
 
     <string name="select_book_empty_title">你尚未收藏任何書籍</string>
     <string name="select_book_empty_description">你可以先透過搜尋功能收藏想要閱讀的書籍，再透過主題將他們整裡起來喔！</string>
+
+    <string name="dashboard_onboarding_sign_up_title">新推出：帳號同步功能</string>
+    <string name="dashboard_onboarding_sign_up_description">創建 Inbooks 帳號，讓你的資料透過雲端備份，只要同步就能找回所有的收藏。</string>
 </resources>

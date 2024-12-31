@@ -13,7 +13,7 @@ androidx-test = "1.6.1"
 arrow = "1.2.4"
 buildconfig = "5.3.5"
 bcrypt = "0.10.2"
-coil = "3.0.0-alpha10"
+coil = "3.0.0"
 compose-plugin = "1.7.0"
 docker-compose = "0.17.10"
 exposed = "0.55.0"
@@ -23,16 +23,15 @@ jetbrain-androidx-lifecycle = "2.8.3"
 jetbrain-nvaigation-compose = "2.8.0-alpha10"
 junit = "4.13.2"
 mockk = "1.13.13"
-kamel = "0.9.5"
 kermit = "2.0.4"
 kmpalette = "3.1.0"
-koin = "3.5.6"
+koin = "4.0.0"
 kotest = "6.0.0.M1"
 kotlin = "2.0.21"
 kotlinx-collections-immutable = "0.3.7"
 kotlinx-datetime = "0.6.1"
 kotlinx-serialization-json = "1.7.3"
-ksp = "2.0.20-1.0.24"
+ksp = "2.0.21-1.0.26"
 ksoup = "0.2.0"
 ktor = "3.0.1"
 logback = "1.5.7"
@@ -75,7 +74,6 @@ jetbrain-androidx-lifecycle-common = { module = "org.jetbrains.androidx.lifecycl
 jetbrain-androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "jetbrain-nvaigation-compose" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 mockk-jvm = { group = "io.mockk", name = "mockk-jvm", version.ref = "mockk" }
-kamel = { module = "media.kamel:kamel-image", version.ref = "kamel" }
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kermit-koin = { module = "co.touchlab:kermit-koin", version.ref = "kermit" }
 kmpalette-core = { module = "com.kmpalette:kmpalette-core", version.ref = "kmpalette" }
@@ -83,6 +81,8 @@ kmpalette-extensions-network = { module = "com.kmpalette:extensions-network", ve
 koin-android = { group = "io.insert-koin", name = "koin-android" }
 koin-bom = { group = "io.insert-koin", name = "koin-bom", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-compose" }
+koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel" }
+koin-compose-viewmodel-navigation = { group = "io.insert-koin", name = "koin-compose-viewmodel-navigation" }
 koin-core = { group = "io.insert-koin", name = "koin-core" }
 koin-ktor = { group = "io.insert-koin", name = "koin-ktor" }
 kotest-assertions-arrow = { module = "io.kotest.extensions:kotest-assertions-arrow", version = "1.4.0" }

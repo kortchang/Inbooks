@@ -33,7 +33,6 @@ import androidx.compose.ui.unit.dp
 import io.kort.inbooks.ui.foundation.sweepGradient
 import io.kort.inbooks.ui.token.component.Component
 import io.kort.inbooks.ui.token.reference.Reference
-import io.kort.inbooks.ui.token.system.System
 
 @Composable
 fun Button(
@@ -98,10 +97,17 @@ object ButtonDefaults {
     )
 
     @Composable
-    fun outlineButtonColors() = ButtonColors(
+    fun outlineButtonOnBackgroundColors() = ButtonColors(
         backgroundColor = Color.Transparent,
-        onBackgroundColor = Component.button.backgroundButtonOnBackground,
-        outlineColor = Component.button.backgroundButtonOnBackground.copy(alpha = Component.button.outlineButtonOutlineAlpha)
+        onBackgroundColor = Component.button.outlineButtonOnBackground,
+        outlineColor = Component.button.outlineButtonOnBackground.copy(alpha = Component.button.outlineButtonOutlineAlpha)
+    )
+
+    @Composable
+    fun outlineButtonOnSurfaceColors() = ButtonColors(
+        backgroundColor = Color.Transparent,
+        onBackgroundColor = Component.button.outlineButtonOnBackground,
+        outlineColor = Component.button.outlineButtonOnBackground.copy(alpha = Component.button.outlineButtonOutlineAlpha)
     )
 
     @Composable

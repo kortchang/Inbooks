@@ -15,6 +15,7 @@ class SettingsLocalDataSource(private val dataStore: DataStore<Preferences>) : S
     companion object {
         val IsOnboardedKey = booleanPreferencesKey("is_onboarded")
         val BookListDisplayStyleKey = stringPreferencesKey("book_list_display_style")
+        val IsOnboardedSignUpKey = booleanPreferencesKey("is_onboarded_sign_up")
     }
 
     override suspend fun isOnboarded(): Boolean {
@@ -38,6 +39,16 @@ class SettingsLocalDataSource(private val dataStore: DataStore<Preferences>) : S
     override suspend fun updateBookListDisplayStyle(value: BookListDisplayStyle) {
         dataStore.edit { settings ->
             settings[BookListDisplayStyleKey] = value.serializedName
+        }
+    }
+
+    override suspend fun isOnboardedSignUp(): Boolean {
+        return dataStore.data.firstOrNull()?.get(IsOnboardedSignUpKey) ?: false
+    }
+
+    override suspend fun markIsOnboardedSignUp() {
+        dataStore.edit { settings ->
+            settings[IsOnboardedSignUpKey] = true
         }
     }
 }

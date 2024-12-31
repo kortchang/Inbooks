@@ -37,7 +37,12 @@ class UserRepository(
         return either {
             ensure(validator.displayNameIsValid(displayName)) { CreateError.InvalidDisplayName }
             ensure(validator.emailIsValid(email)) { CreateError.InvalidEmail }
-            ensure(validator.passwordIsValid(password)) { CreateError.InvalidPassword }
+            validator.passwordIsValid(password).mapLeft {
+                when (it) {
+                    UserValidator.PasswordError.PasswordTooShort -> CreateError.PasswordTooShort
+                    UserValidator.PasswordError.PasswordHasInvalidCharacter -> CreateError.PasswordHasInvalidCharacter
+                }
+            }.bind()
 
             newSuspendedTransaction(Dispatchers.IO) {
                 val userExist = Authentication.find { Authentications.email eq email }.firstOrNull() != null

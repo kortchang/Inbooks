@@ -26,7 +26,13 @@ style:
     ignorePropertyDeclaration: true
   UnusedPrivateMember:
     ignoreAnnotated: [ 'Preview' ]
+  MaxLineLength:
+    maxLineLength: 140
 
 formatting:
   ArgumentListWrapping:
+    maxLineLength: 140
+  MaximumLineLength:
+    maxLineLength: 140
+  ParameterListWrapping:
     maxLineLength: 140

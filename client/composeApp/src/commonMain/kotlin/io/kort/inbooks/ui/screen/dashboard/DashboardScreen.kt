@@ -23,7 +23,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -39,16 +41,19 @@ import io.kort.inbooks.ui.resource.see_all
 import io.kort.inbooks.app.di.getViewModel
 import io.kort.inbooks.domain.model.book.CollectedBook
 import io.kort.inbooks.domain.model.topic.Topic
+import io.kort.inbooks.ui.component.Avatar
+import io.kort.inbooks.ui.component.AvatarDefaults.redDot
 import io.kort.inbooks.ui.component.PageScope
+import io.kort.inbooks.ui.component.TopAppBar
 import io.kort.inbooks.ui.foundation.SharedScene
 import io.kort.inbooks.ui.foundation.plus
-import io.kort.inbooks.ui.pattern.AppBar
+import io.kort.inbooks.ui.foundation.thenIf
 import io.kort.inbooks.ui.pattern.Empty
 import io.kort.inbooks.ui.pattern.book.BookCover
 import io.kort.inbooks.ui.pattern.book.BookCoverDefaults
 import io.kort.inbooks.ui.pattern.book.BookCoverLayoutStyle
 import io.kort.inbooks.ui.pattern.topic.TopicDetail
-import io.kort.inbooks.ui.token.system.System.Companion
+import io.kort.inbooks.ui.screen.dashboard.signup.SignUpOnboardingSheet
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -58,6 +63,8 @@ fun PageScope.DashboardScreen(
     navigateToTopic: (topic: Topic) -> Unit,
     navigateToBookList: () -> Unit,
     navigateToTopicList: () -> Unit,
+    navigateToSignUp: () -> Unit,
+    navigateToSettings: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val viewModel = getViewModel<DashboardViewModel>()
@@ -71,6 +78,8 @@ fun PageScope.DashboardScreen(
             navigateToTopic = navigateToTopic,
             navigateToBookCollection = navigateToBookList,
             navigateToTopicCollection = navigateToTopicList,
+            navigateToSignUp = navigateToSignUp,
+            navigateToSettings = navigateToSettings,
         )
     }
 }
@@ -83,6 +92,8 @@ private fun Content(
     navigateToTopic: (topic: Topic) -> Unit,
     navigateToBookCollection: () -> Unit,
     navigateToTopicCollection: () -> Unit,
+    navigateToSignUp: () -> Unit,
+    navigateToSettings: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val horizontalWindowInsets = windowInsets.only(WindowInsetsSides.Horizontal)
@@ -91,10 +102,7 @@ private fun Content(
     Column(
         modifier = modifier.fillMaxSize().windowInsetsPadding(topWindowInsets),
     ) {
-        AppBar(
-            modifier = Modifier.windowInsetsPadding(horizontalWindowInsets),
-            horizontalAlignment = Alignment.Start
-        )
+        TopAppBar(horizontalWindowInsets, uiState, navigateToSettings, navigateToSignUp)
         if (uiState.books.isEmpty() && uiState.topics.isEmpty()) {
             Empty(
                 modifier = Modifier.weight(1f).windowInsetsPadding(horizontalWindowInsets.union(bottomWindowInsets)),
@@ -126,6 +134,42 @@ private fun Content(
             }
         }
     }
+}
+
+@Composable
+private fun TopAppBar(
+    horizontalWindowInsets: WindowInsets,
+    uiState: DashboardUiState.Initialized,
+    navigateToSettings: () -> Unit,
+    navigateToSignUp: () -> Unit
+) {
+    TopAppBar(
+        modifier = Modifier.windowInsetsPadding(horizontalWindowInsets),
+        start = {
+            var showSignUpOnboardingSheet by remember { mutableStateOf(false) }
+            Avatar(
+                modifier = Modifier.thenIf(uiState.showRedDotOnAvatarToOnboardSignUp) { redDot() },
+                url = null,
+                onClick = {
+                    if (uiState.isLoggedIn) {
+                        navigateToSettings()
+                    } else {
+                        showSignUpOnboardingSheet = true
+                    }
+                }
+            )
+
+            if (showSignUpOnboardingSheet) {
+                SignUpOnboardingSheet(
+                    onDismissRequest = {
+                        showSignUpOnboardingSheet = false
+                        uiState.intentTo(DashboardUiIntent.MarkIsOnboardedSignUp)
+                    },
+                    navigateToSignUp = navigateToSignUp,
+                )
+            }
+        }
+    )
 }
 
 private fun LazyListScope.books(

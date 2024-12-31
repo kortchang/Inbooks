@@ -18,6 +18,9 @@ import io.kort.inbooks.domain.repository.GetBookByUrlRepository
 import io.kort.inbooks.domain.repository.SearchBookRepository
 import io.kort.inbooks.domain.repository.SettingsRepository
 import io.kort.inbooks.domain.repository.TopicRepository
+import io.kort.inbooks.domain.repository.UserRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
@@ -37,4 +40,11 @@ fun dataModule() = module {
 
     single<SettingsRepository> { SettingsLocalDataSource(dataStore = createAppDataStore("settings")) }
 
+    single<UserRepository> {
+        object : UserRepository {
+            override fun getIsLoggedIn(): Flow<Boolean> {
+                return flowOf(false)
+            }
+        }
+    }
 }
