@@ -1,18 +1,3 @@
-# This file contains the fastlane.tools configuration
-# You can find the documentation at https://docs.fastlane.tools
-#
-# For a list of all available actions, check out
-#
-#     https://docs.fastlane.tools/actions
-#
-# For a list of all available plugins, check out
-#
-#     https://docs.fastlane.tools/plugins/available-plugins
-#
-
-# Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
-
 default_platform(:android)
 
 platform :android do
@@ -29,15 +14,16 @@ platform :android do
         track = "internal"
         current_version_codes = google_play_track_version_codes(track: track)
         version_code = current_version_codes[0].to_i + 1
+        
         gradle(
             task: "bundle",
             build_type: "Release",
             project_dir: "../../",
             properties: {
-                "android.injected.signing.store.file" => CredentialsManager::AppfileConfig.try_fetch_value(:signing_store_file_path),
-                "android.injected.signing.store.password" => CredentialsManager::AppfileConfig.try_fetch_value(:signing_store_password),
-                "android.injected.signing.key.alias" => CredentialsManager::AppfileConfig.try_fetch_value(:signing_key_alias),
-                "android.injected.signing.key.password" => CredentialsManager::AppfileConfig.try_fetch_value(:signing_key_password),
+                "android.injected.signing.store.file" => ENV["signing_store_file_path"],
+                "android.injected.signing.store.password" => ENV["signing_store_password"],
+                "android.injected.signing.key.alias" => ENV["signing_key_alias"],
+                "android.injected.signing.key.password" => ENV["signing_key_password"],
                 "version.code" => version_code,
                 "version.name" => options[:version_name] || "",
             }

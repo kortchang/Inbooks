@@ -1,17 +1,12 @@
-json_key_file ENV["gcp_api_json_key_file_path_production"]
-package_name "com.kort.inbooks"
-signing_store_file_path ENV["signing_store_file_path_production"]
-signing_store_password ENV["signing_store_password_production"]
-signing_key_alias ENV["signing_key_alias_production"]
-signing_key_password ENV["signing_key_password_production"]
+# Production 環境的預設配置
+json_key_file(ENV["gcp_api_json_key_file_path_production"])
+package_name("com.kort.inbooks")
 
+# Android 平台的配置
 for_platform :android do
+  # Alpha 環境的配置
   for_lane :deploy_to_alpha do
-    json_key_file ENV["gcp_api_json_key_file_path_alpha"]
-    package_name "com.kort.inbooks.dev"
-    signing_store_file_path ENV["signing_store_file_path_alpha"]
-    signing_store_password ENV["signing_store_password_alpha"]
-    signing_key_alias ENV["signing_key_alias_alpha"]
-    signing_key_password ENV["signing_key_password_alpha"]
+    json_key_file(ENV["gcp_api_json_key_file_path_alpha"])
+    package_name("com.kort.inbooks.dev")
   end
 end
