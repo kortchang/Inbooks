@@ -10,10 +10,6 @@ on:
         options:
           - alpha
           - production
-      version_name:
-        description: 'Version Name'
-        required: true
-        type: string
 
 jobs:
   deploy:
@@ -21,6 +17,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Check release branch
+      if: ${{ !startsWith(github.ref, 'refs/heads/release/') }}
+      run: |
+        echo "::error::This workflow can only be run on release branches (e.g., release/1.0.0)"
+        exit 1
 
     - uses: ruby/setup-ruby@v1
       with:
@@ -39,7 +41,7 @@ jobs:
     - run: bundle install
       working-directory: client/composeApp
 
-    - run: bundle exec fastlane android deploy_to_${{ github.event.inputs.environment }} version_name:${{ github.event.inputs.version_name }}
+    - run: bundle exec fastlane android deploy_to_${{ github.event.inputs.environment }} version_name:${{ github.ref_name }}
       working-directory: client/composeApp
       env:
         gcp_api_json_key_file_path_production: gcp_key_production.json
@@ -47,7 +49,7 @@ jobs:
         signing_store_password_production: ${{ secrets.signing_store_password_production }}
         signing_key_alias_production: ${{ secrets.signing_key_alias_production }}
         signing_key_password_production: ${{ secrets.signing_key_password_production }}
-        gcp_api_json_key_alpha: gcp_key_alpha.json
+        gcp_api_json_key_file_path_alpha: gcp_key_alpha.json
         signing_store_file_path_alpha: signing_store_alpha.keystore
         signing_store_password_alpha: ${{ secrets.signing_store_password_alpha }}
         signing_key_alias_alpha: ${{ secrets.signing_key_alias_alpha }}
