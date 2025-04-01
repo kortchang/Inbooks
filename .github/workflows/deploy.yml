@@ -50,20 +50,27 @@ jobs:
       id: get_version
       run: echo "version=${GITHUB_REF#refs/heads/release/}" >> $GITHUB_OUTPUT
 
-    - uses: maierj/fastlane-action@v3.1.0
-      with:
-        lane: "deploy_to_${{ github.event.inputs.stage }}"
-        options: '{"version_name": "${{ steps.get_version.outputs.version }}"}'
-        subdirectory: client/composeApp
-        env: |
-          gcp_api_json_key_file_path_production=gcp_key_production.json
-          signing_store_file_path_production=signing_store_production.keystore
-          signing_store_password_production=${{ secrets.signing_store_password_production }}
-          signing_key_alias_production=${{ secrets.signing_key_alias_production }}
-          signing_key_password_production=${{ secrets.signing_key_password_production }}
-          gcp_api_json_key_file_path_alpha=gcp_key_alpha.json
-          signing_store_file_path_alpha=signing_store_alpha.keystore
-          signing_store_password_alpha=${{ secrets.signing_store_password_alpha }}
-          signing_key_alias_alpha=${{ secrets.signing_key_alias_alpha }}
-          signing_key_password_alpha=${{ secrets.signing_key_password_alpha }}
+    - name: Run Fastlane
+      id: fastlane
+      continue-on-error: false
+      run: |
+        cd client/composeApp
+        bundle exec fastlane android deploy_to_${{ github.event.inputs.stage }} version_name:${{ steps.get_version.outputs.version }}
+      env:
+        gcp_api_json_key_file_path_production: gcp_key_production.json
+        signing_store_file_path_production: signing_store_production.keystore
+        signing_store_password_production: ${{ secrets.signing_store_password_production }}
+        signing_key_alias_production: ${{ secrets.signing_key_alias_production }}
+        signing_key_password_production: ${{ secrets.signing_key_password_production }}
+        gcp_api_json_key_file_path_alpha: gcp_key_alpha.json
+        signing_store_file_path_alpha: signing_store_alpha.keystore
+        signing_store_password_alpha: ${{ secrets.signing_store_password_alpha }}
+        signing_key_alias_alpha: ${{ secrets.signing_key_alias_alpha }}
+        signing_key_password_alpha: ${{ secrets.signing_key_password_alpha }}
+
+    - name: Check Fastlane Status
+      if: steps.fastlane.outcome != 'success'
+      run: |
+        echo "::error::Fastlane deployment failed"
+        exit 1
 
