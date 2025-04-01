@@ -1,0 +1,6 @@
+json_key_file ENV("gcp_api_json_key_file_path_production")
+package_name("io.kort.inbooks")
+signing_store_file_path ENV("signing_store_file_path_production")
+signing_store_password ENV("signing_store_password_production")
+signing_key_alias ENV("signing_store_password_production")
+signing_key_password ENV("signing_store_password_production")

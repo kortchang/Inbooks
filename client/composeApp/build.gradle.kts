@@ -170,8 +170,8 @@ android {
             libs.versions.android.targetSdk
                 .get()
                 .toInt()
-        versionCode = 9
-        versionName = "0.1.3"
+        versionCode = project.properties["version.code"].toString().toIntOrNull() ?: 9
+        versionName = project.properties["version.name"].toString()
     }
     packaging {
         resources {
