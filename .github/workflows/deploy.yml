@@ -38,7 +38,10 @@ jobs:
         echo "${{ secrets.signing_store_file_base64_production }}" | base64 -d > signing_store_production.keystore
         echo "${{ secrets.signing_store_file_base64_alpha }}" | base64 -d > signing_store_alpha.keystore
 
-    - run: bundle install
+    - name: Install bundler
+      run: sudo gem install bundler
+
+    - run: sudo bundle install
       working-directory: client/composeApp
 
     - name: Get version from branch
