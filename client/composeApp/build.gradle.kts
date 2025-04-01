@@ -178,13 +178,23 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    signingConfigs {
+        create("release") {
+            storeFile = file(project.properties["signing.store.file"].toString())
+            storePassword = project.properties["signing.store.password"].toString()
+            keyAlias = project.properties["signing.key.alias"].toString()
+            keyPassword = project.properties["signing.key.password"].toString()
+        }
+    }
     buildTypes {
         getByName("debug") {
             applicationIdSuffix = ".debug"
+            signingConfig = signingConfigs.getByName("release")
         }
 
         getByName("release") {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {

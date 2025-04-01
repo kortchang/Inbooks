@@ -1,10 +1,7 @@
-# Production 環境的預設配置
 json_key_file(ENV["gcp_api_json_key_file_path_production"])
 package_name("com.kort.inbooks")
 
-# Android 平台的配置
 for_platform :android do
-  # Alpha 環境的配置
   for_lane :deploy_to_alpha do
     json_key_file(ENV["gcp_api_json_key_file_path_alpha"])
     package_name("com.kort.inbooks.dev")
