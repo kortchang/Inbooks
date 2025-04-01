@@ -3,8 +3,8 @@ name: Deploy
 on:
   workflow_dispatch:
     inputs:
-      environment:
-        description: 'Phase'
+      stage:
+        description: 'Stage'
         required: true
         type: choice
         options:
@@ -38,10 +38,15 @@ jobs:
         echo "${{ secrets.signing_store_file_base64_production }}" | base64 -d > signing_store_production.keystore
         echo "${{ secrets.signing_store_file_base64_alpha }}" | base64 -d > signing_store_alpha.keystore
 
-    - run: bundle install
+
+    - run: sudo bundle install
       working-directory: client/composeApp
 
-    - run: bundle exec fastlane android deploy_to_${{ github.event.inputs.environment }} version_name:${{ github.ref_name }}
+    - name: Get version from branch
+      id: get_version
+      run: echo "version=${GITHUB_REF#refs/heads/release/}" >> $GITHUB_OUTPUT
+
+    - run: bundle exec fastlane android deploy_to_${{ github.event.inputs.stage }} version_name:${{ steps.get_version.outputs.version }}
       working-directory: client/composeApp
       env:
         gcp_api_json_key_file_path_production: gcp_key_production.json
@@ -54,3 +59,4 @@ jobs:
         signing_store_password_alpha: ${{ secrets.signing_store_password_alpha }}
         signing_key_alias_alpha: ${{ secrets.signing_key_alias_alpha }}
         signing_key_password_alpha: ${{ secrets.signing_key_password_alpha }}
+
