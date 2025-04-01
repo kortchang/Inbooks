@@ -1,5 +1,5 @@
 json_key_file ENV["gcp_api_json_key_file_path_production"]
-package_name ENV["package_name_production"]
+package_name com.kort.inbooks
 signing_store_file_path ENV["signing_store_file_path_production"]
 signing_store_password ENV["signing_store_password_production"]
 signing_key_alias ENV["signing_key_alias_production"]
@@ -8,7 +8,7 @@ signing_key_password ENV["signing_key_password_production"]
 for_platform :android do
   for_lane :deploy_to_alpha do
     json_key_file ENV["gcp_api_json_key_file_path_alpha"]
-    package_name ENV["package_name_alpha"]
+    package_name com.kort.inbooks.dev
     signing_store_file_path ENV["signing_store_file_path_alpha"]
     signing_store_password ENV["signing_store_password_alpha"]
     signing_key_alias ENV["signing_key_alias_alpha"]
