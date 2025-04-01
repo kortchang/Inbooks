@@ -30,6 +30,12 @@ jobs:
         bundler-cache: true
         working-directory: client/composeApp
 
+    - name: Create secret.properties
+      run: |
+        cat > secret.properties << EOL
+        google.book.api.key=${{ secrets.google_book_api_key }}
+        EOL
+
     - name: Create GCP JSON key files
       run: |
         echo "${{ secrets.gcp_api_json_key_production }}" > client/composeApp/gcp_key_production.json
