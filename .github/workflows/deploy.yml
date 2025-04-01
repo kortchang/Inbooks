@@ -27,35 +27,37 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: '2.7'
+        bundler-cache: true
+        working-directory: client/composeApp
 
     - name: Create GCP JSON key files
       run: |
-        echo "${{ secrets.gcp_api_json_key_production }}" > gcp_key_production.json
-        echo "${{ secrets.gcp_api_json_key_alpha }}" > gcp_key_alpha.json
+        echo "${{ secrets.gcp_api_json_key_production }}" > client/composeApp/gcp_key_production.json
+        echo "${{ secrets.gcp_api_json_key_alpha }}" > client/composeApp/gcp_key_alpha.json
 
     - name: Create signing store files
       run: |
-        echo "${{ secrets.signing_store_file_base64_production }}" | base64 -d > signing_store_production.keystore
-        echo "${{ secrets.signing_store_file_base64_alpha }}" | base64 -d > signing_store_alpha.keystore
-
-    - run: sudo bundler install
-      working-directory: client/composeApp
+        echo "${{ secrets.signing_store_file_base64_production }}" | base64 -d > client/composeApp/signing_store_production.keystore
+        echo "${{ secrets.signing_store_file_base64_alpha }}" | base64 -d > client/composeApp/signing_store_alpha.keystore
 
     - name: Get version from branch
       id: get_version
       run: echo "version=${GITHUB_REF#refs/heads/release/}" >> $GITHUB_OUTPUT
 
-    - run: bundle exec fastlane android deploy_to_${{ github.event.inputs.stage }} version_name:${{ steps.get_version.outputs.version }}
-      working-directory: client/composeApp
-      env:
-        gcp_api_json_key_file_path_production: gcp_key_production.json
-        signing_store_file_path_production: signing_store_production.keystore
-        signing_store_password_production: ${{ secrets.signing_store_password_production }}
-        signing_key_alias_production: ${{ secrets.signing_key_alias_production }}
-        signing_key_password_production: ${{ secrets.signing_key_password_production }}
-        gcp_api_json_key_file_path_alpha: gcp_key_alpha.json
-        signing_store_file_path_alpha: signing_store_alpha.keystore
-        signing_store_password_alpha: ${{ secrets.signing_store_password_alpha }}
-        signing_key_alias_alpha: ${{ secrets.signing_key_alias_alpha }}
-        signing_key_password_alpha: ${{ secrets.signing_key_password_alpha }}
+    - uses: maierj/fastlane-action@v3.1.0
+      with:
+        lane: "deploy_to_${{ github.event.inputs.stage }}"
+        options: '{"version_name": "${{ steps.get_version.outputs.version }}"}'
+        subdirectory: client/composeApp
+        env: |
+          gcp_api_json_key_file_path_production=gcp_key_production.json
+          signing_store_file_path_production=signing_store_production.keystore
+          signing_store_password_production=${{ secrets.signing_store_password_production }}
+          signing_key_alias_production=${{ secrets.signing_key_alias_production }}
+          signing_key_password_production=${{ secrets.signing_key_password_production }}
+          gcp_api_json_key_file_path_alpha=gcp_key_alpha.json
+          signing_store_file_path_alpha=signing_store_alpha.keystore
+          signing_store_password_alpha=${{ secrets.signing_store_password_alpha }}
+          signing_key_alias_alpha=${{ secrets.signing_key_alias_alpha }}
+          signing_key_password_alpha=${{ secrets.signing_key_password_alpha }}
 
